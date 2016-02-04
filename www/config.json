@@ -1,7 +1,7 @@
 {
     "app_id" : "uk.ac.bbk.slapp",
     "versioncode" : "2009",
-    "versionname" : "0.0.33",
+    "versionname" : "0.0.34",
     "siteurl" : "moodle.slapp.space",
     "cache_expiration_time" : 300000,
     "default_lang" : "en",
