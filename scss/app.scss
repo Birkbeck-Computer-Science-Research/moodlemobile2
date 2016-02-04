@@ -4,6 +4,11 @@
  * Use it to customise the look and feel of the app.
  */
 
+// global
+$base-background-color: #70bcbc !default;
+@import url(https://moodle.slapp.space/fonts/montserrat/stylesheet.css);
+$font-family-base: 'montserratlight';
+
 // Colors.
 $positive: #387ef5;
 
