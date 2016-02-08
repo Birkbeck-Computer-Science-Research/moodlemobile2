@@ -16,6 +16,7 @@ var path = require('path');
 var File = gutil.File;
 var gulpSlash = require('gulp-slash');
 var ngAnnotate = require('gulp-ng-annotate');
+var sourcemaps = require('gulp-sourcemaps');
 
 var license = '' +
   '// (C) Copyright 2015 Martin Dougiamas\n' +
@@ -106,6 +107,7 @@ gulp.task('build', function(done) {
       pluginRegex = /addons\/([^\/]+)\/main.js/;
 
   gulp.src(paths.js)
+    .pipe(sourcemaps.init())
     .pipe(gulpSlash())
     .pipe(clipEmptyFiles())
     .pipe(tap(function(file, t) {
@@ -117,11 +119,11 @@ gulp.task('build', function(done) {
     }))
 
     // Remove comments, remove empty lines, concat and add license.
-    .pipe(stripComments())
-    .pipe(removeEmptyLines())
+    //.pipe(stripComments())
+    //.pipe(removeEmptyLines())
     .pipe(ngAnnotate()) // This step fixes DI declarations for FirefoxOS.
     .pipe(concat(buildFile))
-    .pipe(insert.prepend(license))
+    //.pipe(insert.prepend(license))
 
     // Add dependencies, this assumes that the mm module is declared on one line.
     .pipe(insert.transform(function(contents) {
@@ -129,6 +131,7 @@ gulp.task('build', function(done) {
         "angular.module('mm', ['ionic'",
         "angular.module('mm', ['ionic', " + dependencies.join(', '));
     }))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(paths.build))
     .on('end', done);
 });
