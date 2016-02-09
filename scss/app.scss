@@ -5,12 +5,26 @@
  */
 
 // global
-$base-background-color: #8A0026 !default;
+$base-background-color: #D1D6E1 !default;
 @import url(http://moodle.slapp.space/fonts/montserrat/stylesheet.css);
 $font-family-base: 'montserratlight';
+$font-family-base: 'arial';
 
 // Colors.
-$positive: #387ef5;
+$positive: #d1d6e1;
+
+//$dark: orange !default;
+
+$bar-content-bg: #546A7F;
+$bar-content-text: white;
+//$bar-content-border: white;
+nav ul.list li,nav ul.list li a, nav ul.list a {
+	background-color: $bar-content-bg;
+	color: $bar-content-text;
+}
+ion-side-menu.menu-left.menu {
+  background-color: $bar-content-bg !important;
+}
 
 // Setting the default button to button-outline.
 $button-default-bg: transparent;
