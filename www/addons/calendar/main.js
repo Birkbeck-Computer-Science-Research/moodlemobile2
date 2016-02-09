@@ -48,7 +48,7 @@ angular.module('mm.addons.calendar', [])
 
     // Register side menu addon.
     // FYI: Comment this out to disable from side menu
-    //$mmSideMenuDelegateProvider.registerNavHandler('mmaCalendar', '$mmaCalendarHandlers.sideMenuNav', mmaCalendarPriority);
+    $mmSideMenuDelegateProvider.registerNavHandler('mmaCalendar', '$mmaCalendarHandlers.sideMenuNav', mmaCalendarPriority);
 
 })
 
