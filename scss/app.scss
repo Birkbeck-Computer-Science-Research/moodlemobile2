@@ -18,11 +18,20 @@ $positive: #d1d6e1;
 $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
+
+// left side menu
+div.item-divider {
+	min-height: 1px;
+	height: 5px;
+	border-top: 2px solid #67768D;
+	padding: 0;
+	margin: 0 1em;
+	background-color: #48576E;
+}
 nav ul.list li,nav ul.list li a, nav ul.list a {
+	border: 0;
 	background-color: $bar-content-bg;
 	color: $bar-content-text;
-	border-top: 1px solid #48576E;
-	border-bottom: 1px solid #fff;
 }
 ion-side-menu.menu-left.menu {
   background-color: $bar-content-bg !important;
