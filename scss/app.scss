@@ -16,6 +16,24 @@ $positive: #d1d6e1;
 $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
+$bb-button-background: #25527E;
+
+// login
+label.item-stacked-label {
+	padding-right: 1em;
+}
+label.item-stacked-label input {
+	border: 2px solid $bb-button-background;
+	padding-left: 1em;
+}
+
+// buttons
+div.item {
+	background-color: $base-background-color;
+}
+button.button-block {
+	background-color: $bb-button-background;
+}
 
 //participants
 .participants {
