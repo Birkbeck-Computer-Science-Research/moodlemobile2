@@ -19,6 +19,14 @@ $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
 
+// courses
+section a h2 span {
+	font-weight: bold;
+}
+.tabs-icon-left.tabs .tab-item {
+	font-weight: bold;
+}
+
 // left side menu
 div.item-divider {
 	min-height: 1px;
