@@ -12,12 +12,15 @@ $font-family-base: 'arial';
 
 // Colors.
 $positive: #d1d6e1;
-
 //$dark: orange !default;
-
 $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
+
+//participants
+.participants {
+	margin: 2em;
+}
 
 // courses
 section a h2 span {
