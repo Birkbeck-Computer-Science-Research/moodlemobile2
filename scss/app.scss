@@ -21,6 +21,8 @@ $bar-content-text: white;
 nav ul.list li,nav ul.list li a, nav ul.list a {
 	background-color: $bar-content-bg;
 	color: $bar-content-text;
+	border-top: 1px solid #48576E;
+	border-bottom: 1px solid #fff;
 }
 ion-side-menu.menu-left.menu {
   background-color: $bar-content-bg !important;
