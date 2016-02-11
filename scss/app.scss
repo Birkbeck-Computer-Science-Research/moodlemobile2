@@ -16,6 +16,7 @@ $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
 $bb-button-background: #25527E;
+$bb-button-color: $base-background-color;
 $positive: $bb-button-background;
 
 // login
@@ -37,9 +38,11 @@ div.item, li.item {
 }
 button.button {
 	background-color: $bb-button-background;
+	color: $bb-button-color;
 }
 button.button-icon {
 	background-color: $bar-content-text;
+	color: $bb-button-color;
 }
 
 //participants
