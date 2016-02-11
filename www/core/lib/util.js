@@ -600,6 +600,8 @@ angular.module('mm.core')
                 }
             }
 
+            docsurl = 'https://sites.google.com/a/miraclefish.com/birkbeck/';
+
             return $mmLang.getCurrentLanguage().then(function(lang) {
                 return docsurl.replace('/en/', '/' + lang + '/');
             }, function() {
