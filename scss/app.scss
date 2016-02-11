@@ -11,12 +11,12 @@ $font-family-base: 'montserratlight';
 $font-family-base: 'arial';
 
 // Colors.
-$positive: #d1d6e1;
 //$dark: orange !default;
 $bar-content-bg: #546A7F;
 $bar-content-text: white;
 //$bar-content-border: white;
 $bb-button-background: #25527E;
+$positive: $bb-button-background;
 
 // login
 label img {
@@ -37,6 +37,9 @@ div.item, li.item {
 }
 button.button {
 	background-color: $bb-button-background;
+}
+button.button-icon {
+	background-color: $bar-content-text;
 }
 
 //participants
