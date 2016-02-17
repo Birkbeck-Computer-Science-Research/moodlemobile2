@@ -40,6 +40,14 @@
             </section>
 
             <!-- Choice results -->
+            <section class="card text-center results" ng-if="canSeeResults">
+                <h1>Results</h1>
+                <!-- FIXME: poll.intro is HTML and it doesn't automatically get added to the DOM like this -->
+                <!-- <div>{{poll.intro}}</div> -->
+                <div style="padding: 3px;height: 100%;border: 0px solid red" class="has-header has-footer">
+                    <nvd3 options='d3_options' data='data'></nvd3>
+                </div>
+            </section>
             <section class="card text-center" ng-if="canSeeResults">
                 <h3>{{ 'mma.mod_choice.responses' | translate }}</h3>
                 <div class="row">

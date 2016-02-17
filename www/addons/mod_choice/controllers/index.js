@@ -33,6 +33,41 @@ angular.module('mm.addons.mod_choice')
     $scope.moduleurl = module.url;
     $scope.courseid = courseid;
 
+    $scope.d3_options = {
+        chart: {
+            type: 'discreteBarChart',
+            height:250,
+            margin : {
+                top: 20,
+                right: 20,
+                bottom: 180,
+                left: 55
+            },
+            x: function(d){ return d.label; },
+            y: function(d){ return d.value; },
+            showValues: true,
+            valueFormat: function(d){
+                return d3.format('')(d) + ' (' + d3.format('%')(d/2) + ')';
+            },
+            //staggerLabels: true,
+            transitionDuration: 500,
+            xAxis: {
+                //axisLabel: 'Options',
+                rotateLabels: -45,
+            },
+            yAxis: {
+                //axisLabel: 'Y Axis',
+                axisLabelDistance: 0,
+                tickFormat: function(d){ return d3.format(',f')(d) }
+            },
+            tooltip: {
+                contentGenerator: function(obj) {
+                    return 'Super New Tooltip';
+                }
+            }
+        }
+    };
+
     // Convenience function to get choice data.
     function fetchChoiceData(refresh) {
         $scope.now = new Date().getTime();
@@ -90,14 +125,20 @@ angular.module('mm.addons.mod_choice')
     function fetchResults() {
         return $mmaModChoice.getResults(choice.id).then(function(results) {
             var hasVotes = false;
+            var data     = [];
             angular.forEach(results, function(result) {
                 if (result.numberofuser > 0) {
                     hasVotes = true;
                 }
+                data.push({ 'label': result.text, 'value': result.numberofuser });
                 result.percentageamount = parseFloat(result.percentageamount).toFixed(1);
             });
             $scope.canSeeResults = hasVotes || $mmaModChoice.canStudentSeeResults(choice, hasAnswered);
             $scope.results = results;
+            $scope.data = [{
+                //key: "Some key to the data?",
+                values: data
+            }];
         });
     }
 
