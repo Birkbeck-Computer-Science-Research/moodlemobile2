@@ -1,5 +1,9 @@
 <ion-view>
     <ion-nav-title><mm-format-text watch="true">{{fullname}}</mm-format-text></ion-nav-title>
+    <!-- kebab -->
+    <ion-nav-buttons side="secondary">
+        <a ui-sref="site.mm_searchcourses" class="button button-icon ion-more"></a>
+    </ion-nav-buttons>
     <mm-split-view load-when="sectionsLoaded" load="{{sectionToLoad}}" component="mmCoreCourseSectionsList">
         <ion-content>
            <ion-refresher on-refresh="doRefresh()" pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="sectionsLoaded"></ion-refresher>
