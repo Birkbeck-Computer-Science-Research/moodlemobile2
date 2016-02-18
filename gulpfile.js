@@ -131,7 +131,8 @@ gulp.task('build', function(done) {
         "angular.module('mm', ['ionic'",
         "angular.module('mm', ['ionic', " + dependencies.join(', '));
     }))
-    .pipe(sourcemaps.write())
+//    .pipe(sourcemaps.write('../maps', {includeContent: false, sourceMappingURLPrefix: '/'}))
+    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/'}))
     .pipe(gulp.dest(paths.build))
     .on('end', done);
 });
