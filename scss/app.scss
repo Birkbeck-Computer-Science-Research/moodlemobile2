@@ -42,6 +42,10 @@ button.button {
 	background-color: $bb-button-background;
 	color: $bb-button-color;
 }
+button.button:hover {
+	font-weight: bold;
+	color: $bb-button-color;
+}
 button.button-icon {
 	background-color: $bar-content-text;
 	color: $bb-button-color;
