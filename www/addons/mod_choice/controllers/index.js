@@ -47,7 +47,7 @@ angular.module('mm.addons.mod_choice')
             y: function(d){ return d.value; },
             showValues: true,
             valueFormat: function(d){
-                return d3.format('')(d) + ' (' + d3.format('%')(d/2) + ')';
+                return d3.format('')(d);
             },
             //staggerLabels: true,
             transitionDuration: 500,
@@ -60,9 +60,11 @@ angular.module('mm.addons.mod_choice')
                 axisLabelDistance: 0,
                 tickFormat: function(d){ return d3.format(',f')(d) }
             },
+            // https://nvd3-community.github.io/nvd3/examples/documentation.html#tooltip
             tooltip: {
                 contentGenerator: function(obj) {
-                    return 'Super New Tooltip';
+                    console.log(obj);
+                    return d3.format('.1%')(obj.data.percent);
                 }
             }
         }
@@ -130,8 +132,11 @@ angular.module('mm.addons.mod_choice')
                 if (result.numberofuser > 0) {
                     hasVotes = true;
                 }
-                data.push({ 'label': result.text, 'value': result.numberofuser });
                 result.percentageamount = parseFloat(result.percentageamount).toFixed(1);
+                data.push({
+                    'label': result.text,
+                    'value': result.numberofuser,
+                    'percent': result.percentageamount / 100 });
             });
             $scope.canSeeResults = hasVotes || $mmaModChoice.canStudentSeeResults(choice, hasAnswered);
             $scope.results = results;

@@ -17,5 +17,10 @@
     "angular": "1.4.3",
     "angular-animate": "1.4.3",
     "angular-sanitize": "1.4.3"
+  },
+  "dependencies": {
+    "nvd3": "~1.8.2",
+    "d3": "^3.5.15",
+    "angular-nvd3": "^1.0.5"
   }
 }
