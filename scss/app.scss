@@ -5,14 +5,15 @@
  */
 
 // global
-$base-background-color: #d9e0e6 !default;  // pale blue 
+$base-background-color: #d9e0e6;  // pale blue
+
 @import url(http://moodle.slapp.space/fonts/montserrat/stylesheet.css);
 $font-family-base: 'montserratlight';
 $font-family-base: 'arial';
 
 // Colors.
 //$dark: orange !default;
-$bb-sidemenu-bg: #546b80;                 // dark blue
+$bb-sidemenu-bg: #797d80;                 // grey
 $bar-content-bg: #8a0026;                 // maroon
 
 $bar-content-text: white;
@@ -68,10 +69,10 @@ section a h2 span {
 div.menu-item-divider {
 	min-height: 1px;
 	height: 5px;
-	border-top: 2px solid #67768D;
+	border-top: 2px solid #84888b;
 	padding: 0;
 	margin: 0 1em;
-	background-color: #48576E;
+	background-color: #6C6f73;
 }
 nav ul.list li,nav ul.list li a, nav ul.list a {
 	border: 0;
