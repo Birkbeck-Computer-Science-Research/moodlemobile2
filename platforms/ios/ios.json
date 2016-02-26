@@ -4,8 +4,48 @@
         "uninstalled": []
     },
     "config_munge": {
-        "files": {}
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"DocumentHandler\"><param name=\"ios-package\" value=\"DocumentHandler\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
     },
-    "installed_plugins": {},
-    "dependent_plugins": {}
+    "installed_plugins": {
+        "net.tunts.webintent": {
+            "PACKAGE_NAME": "uk.ac.bbk.birkbeck"
+        },
+        "ch.ti8m.documenthandler": {
+            "PACKAGE_NAME": "uk.ac.bbk.birkbeck"
+        }
+    },
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/net.tunts.webintent/www/webintent.js",
+            "id": "net.tunts.webintent.WebIntent",
+            "pluginId": "net.tunts.webintent",
+            "clobbers": [
+                "WebIntent"
+            ]
+        },
+        {
+            "file": "plugins/ch.ti8m.documenthandler/www/DocumentHandler.js",
+            "id": "ch.ti8m.documenthandler.DocumentHandler",
+            "pluginId": "ch.ti8m.documenthandler",
+            "clobbers": [
+                "handleDocumentWithURL"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "net.tunts.webintent": "0.2.1",
+        "ch.ti8m.documenthandler": "0.2.2"
+    }
 }

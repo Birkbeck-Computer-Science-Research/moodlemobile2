@@ -32,20 +32,24 @@
     "through": "^2.3.6"
   },
   "cordovaPlugins": [
-    "cordova-plugin-device",
-    "cordova-plugin-globalization",
-    "cordova-plugin-file",
-    "cordova-plugin-inappbrowser",
-    "cordova-plugin-file-transfer",
-    "cordova-plugin-network-information",
+    "ch.ti8m.documenthandler",
+    "com.phonegap.plugins.pushplugin",
     "cordova-plugin-camera",
+    "cordova-plugin-customurlscheme",
+    "cordova-plugin-device",
+    "cordova-plugin-file",
+    "cordova-plugin-file-transfer",
+    "cordova-plugin-globalization",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-local-notifications-mm",
     "cordova-plugin-media-capture",
+    "cordova-plugin-network-information",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-local-notifications-mm",
     "cordova-plugin-zip"
+    "ionic-plugin-keyboard",  
+    "net.tunts.webintent",
   ],
   "cordovaPlatforms": [
     "android"

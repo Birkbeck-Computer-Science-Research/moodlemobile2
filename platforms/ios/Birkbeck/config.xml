@@ -57,4 +57,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <icon src="resources/ios/icon/icon-small@3x.png" />
+    <feature name="DocumentHandler">
+        <param name="ios-package" value="DocumentHandler" />
+    </feature>
 </widget>
