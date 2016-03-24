@@ -36,39 +36,61 @@ angular.module('mm.addons.mod_choice')
     $scope.d3_options = {
         chart: {
             type: 'discreteBarChart',
-            height:250,
-            margin : {
-                top: 20,
-                right: 20,
-                bottom: 180,
-                left: 55
-            },
             x: function(d){ return d.label; },
             y: function(d){ return d.value; },
             showValues: true,
             valueFormat: function(d){
                 return d3.format('')(d);
             },
-            //staggerLabels: true,
             transitionDuration: 500,
-            xAxis: {
-                //axisLabel: 'Options',
-                rotateLabels: -45,
-            },
+            xAxis: {},
             yAxis: {
-                //axisLabel: 'Y Axis',
-                axisLabelDistance: 0,
                 tickFormat: function(d){ return d3.format(',f')(d) }
             },
             // https://nvd3-community.github.io/nvd3/examples/documentation.html#tooltip
             tooltip: {
                 contentGenerator: function(obj) {
-                    console.log(obj);
+                    // console.log(obj);
                     return d3.format('.1%')(obj.data.percent);
                 }
+            },
+            discretebar: {
+                dispatch: {
+                    renderEnd: function(e){
+                        d3.selectAll(".tick text").call(wrap,_chart.xAxis.rangeBand());
+                    }
+                }
+            },
+            callback: function(chart){
+                _chart = chart; //global var
             }
         }
     };
+
+    // http://bl.ocks.org/mbostock/7555321
+    function wrap(text, width) {
+      text.each(function() {
+        var text = d3.select(this),
+            words = text.text().split(/\s+/).reverse(),
+            word,
+            line = [],
+            lineNumber = 0,
+            lineHeight = 1.1, // ems
+            y = text.attr("y"),
+            dy = parseFloat(text.attr("dy")),
+            tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+            line.pop();
+            tspan.text(line.join(" "));
+            line = [word];
+            tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+          }
+        }
+      });
+    }
 
     // Convenience function to get choice data.
     function fetchChoiceData(refresh) {
