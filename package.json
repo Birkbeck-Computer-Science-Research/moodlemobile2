@@ -47,7 +47,7 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
-    "cordova-plugin-zip"
+    "cordova-plugin-zip",
     "ionic-plugin-keyboard",  
     "net.tunts.webintent",
   ],
