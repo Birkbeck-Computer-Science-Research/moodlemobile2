@@ -132,7 +132,11 @@ gulp.task('build', function(done) {
         "angular.module('mm', ['ionic', " + dependencies.join(', '));
     }))
 //    .pipe(sourcemaps.write('../maps', {includeContent: false, sourceMappingURLPrefix: '/'}))
-    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/'}))
+//    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/'}))
+    // includeContent in sourcemaps because it "just works".
+    // https://www.npmjs.com/package/gulp-sourcemaps    
+    // Resolves issues linking Chrome workspaces to sourcemaps
+    .pipe(sourcemaps.write({debug: true}))
     .pipe(gulp.dest(paths.build))
     .on('end', done);
 });
