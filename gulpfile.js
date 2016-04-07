@@ -135,7 +135,7 @@ gulp.task('build', function(done) {
 //    .pipe(sourcemaps.write({includeContent: false, sourceRoot: '/'}))
     // includeContent in sourcemaps because it "just works".
     // https://www.npmjs.com/package/gulp-sourcemaps    
-    // Resolves issues linking Chrome workspaces to sourcemaps
+    // Resolves issues linking Chrome workspaces to sourcemaps which prevents setting breakpoints.
     .pipe(sourcemaps.write({debug: true}))
     .pipe(gulp.dest(paths.build))
     .on('end', done);
