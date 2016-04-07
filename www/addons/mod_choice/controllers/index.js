@@ -22,7 +22,7 @@ angular.module('mm.addons.mod_choice')
  * @name mmaModChoiceIndexCtrl
  * @todo Delete answer if user can update the answer, show selected if choice is closed (WS returns empty options).
  */
-.controller('mmaModChoiceIndexCtrl', function($scope, $stateParams, $mmaModChoice, $mmUtil, $q, $mmCourse, $translate) {
+.controller('mmaModChoiceIndexCtrl', function($scope, $timeout, $stateParams, $mmaModChoice, $mmUtil, $q, $mmCourse, $translate) {
     var module = $stateParams.module || {},
         courseid = $stateParams.courseid,
         choice,
@@ -54,16 +54,28 @@ angular.module('mm.addons.mod_choice')
                     return d3.format('.1%')(obj.data.percent);
                 }
             },
+            // https://github.com/krispo/angular-nvd3/issues/36
             discretebar: {
                 dispatch: {
                     renderEnd: function(e){
                         d3.selectAll(".tick text").call(wrap,_chart.xAxis.rangeBand());
-                    }
+                    },
                 }
             },
             callback: function(chart){
                 _chart = chart; //global var
             }
+        }
+    };
+
+    // re-wrap x-axis labels after (swipe down) refresh
+    $scope.d3_events = {
+        'scroll.refreshComplete': function(e, scope) {
+            // The mirky depths of Angular require wrapping this event handler in $timeout()
+            // for the text wrapping to persist in the DOM.
+            // example: https://github.com/krispo/angular-nvd3/issues/36
+            // background: https://docs.angularjs.org/error/$rootScope/inprog
+            $timeout(function() {d3.selectAll(".tick text").call(wrap,_chart.xAxis.rangeBand());}, 0);
         }
     };
 
