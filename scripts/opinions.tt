@@ -1,0 +1,13 @@
+<html>
+<head>
+</head>
+<body>
+<h1>[% question %]</h1>
+[% USE JSON -%]
+[% opinions = JSON.json_decode(json) -%]
+<ul>
+[% FOREACH opinion IN opinions.discussions %]<li>[% opinion.name %]</li>
+[% END -%]
+</ul>
+</body>
+</html>
