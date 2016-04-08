@@ -14,15 +14,12 @@ my $jsondecoder = JSON->new->allow_nonref;  # --- decode the JSON result,
 
 my $result = ws('local_mobile_mod_forum_get_forums_by_courses', {'courseids[0]' => 14}); # LPM
 my $arrayref = $jsondecoder->decode( $result->content );
-
-my($item) = grep {
-  $_->{id} == 53
-} @$arrayref;
-
-$result = ws('mod_forum_get_forum_discussions_paginated', {'forumid' => 53 }); # IYO:leadership
+my($item) = grep { $_->{id} == 53 } @$arrayref;
 my $question = $item->{name};
 
-my $tt = Template->new(INCLUDE_PATH => '/home/paul/src/moodlemobile2/scripts');
+$result = ws('mod_forum_get_forum_discussions_paginated', {'forumid' => 53 }); # IYO:leadership
+
+my $tt = Template->new(INCLUDE_PATH => '.');
 $tt->process('opinions.tt', { question => $question, json => $result->content } ) || die $tt->error;
 
 sub ws {
