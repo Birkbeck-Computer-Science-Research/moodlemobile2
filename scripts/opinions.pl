@@ -9,6 +9,10 @@ use LWP::UserAgent; # web client
 use JSON;           # imports encode_json, decode_json, to_json and from_json.
 use Data::Dumper;   # to print the result variable
 use Template;
+use CGI;
+
+$| = 1;
+print "Content-type: text/html\n\n";
 
 my $jsondecoder = JSON->new->allow_nonref;  # --- decode the JSON result,
 
@@ -20,13 +24,14 @@ my $question = $item->{name};
 $result = ws('mod_forum_get_forum_discussions_paginated', {'forumid' => 53 }); # IYO:leadership
 
 my $tt = Template->new(INCLUDE_PATH => '.');
-$tt->process('opinions.tt', { question => $question, json => $result->content } ) || die $tt->error;
+$tt->process('opinions.html', { question => $question, json => $result->content, cgi => CGI->new() } )
+    || die $tt->error;
 
 sub ws {
     my($function, $params) = @_;
 
     my $url_ws = "https://moodle.slapp.space/webservice/rest/server.php";
-    $params->{wstoken}            = '5fe0ff2308806b115185db34be87f9b5'; # paul's token
+    $params->{wstoken}            = '<replace_with_web_services_user_token>';
     $params->{wsfunction}         = $function,
     $params->{moodlewsrestformat} = 'json'; # Moodle rest server can also return xml
         
