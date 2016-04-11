@@ -1,4 +1,5 @@
 release: resources
+	cordova clean
 	cordova build --release android
 	cd deploy-keys; rm -f birkbeck.apk; \
 	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore app-name-release-key.keystore ../platforms/android/build/outputs/apk/android-release-unsigned.apk slapp; \
