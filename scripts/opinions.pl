@@ -59,7 +59,7 @@ sub ws {
     my($function, $params) = @_;
 
     my $url_ws = "https://moodle.slapp.space/webservice/rest/server.php";
-    $params->{wstoken}            = 'b926992720820536bc8e15dceb726311';
+    $params->{wstoken}            = '<replace_with_web_services_user_token>';
     $params->{wsfunction}         = $function,
     $params->{moodlewsrestformat} = 'json'; # Moodle rest server can also return xml
         
