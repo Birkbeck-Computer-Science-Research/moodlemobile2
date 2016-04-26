@@ -651,7 +651,6 @@ angular.module('mm.core')
                 return self.storePackageStatus(siteId, component, componentId, mmCoreDownloaded, revision, timemod);
             }).catch(function() {
                 // Error downloading, go back to previous status and reject the promise.
-		$log.debug('Error downloading package.');
                 return self.setPackagePreviousStatus(siteId, component, componentId).then(function() {
                     return $q.reject();
                 });
