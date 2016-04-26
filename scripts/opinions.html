@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta http-equiv="refresh" content="5">
 </head>
 <body>
 <h1>[% question %]</h1>
@@ -9,5 +10,6 @@
 [% FOREACH opinion IN opinions.discussions %]<li>[% opinion.name %]</li>
 [% END -%]
 </ul>
+<form>[% select %]<noscript><input type="submit" value="Submit"></noscript></form>
 </body>
 </html>
