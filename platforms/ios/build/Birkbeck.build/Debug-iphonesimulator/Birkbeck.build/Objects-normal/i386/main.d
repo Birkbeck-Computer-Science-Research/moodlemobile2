@@ -1,2 +1,2 @@
 dependencies: \
-  /Users/slapp/Documents/SLAPP/moodlemobile2/platforms/ios/Birkbeck/main.m
+  /Users/paul/Documents/moodlemobile2/platforms/ios/Birkbeck/main.m

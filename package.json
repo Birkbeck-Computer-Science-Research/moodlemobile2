@@ -31,12 +31,17 @@
     "shelljs": "^0.3.0",
     "through": "^2.3.6"
   },
+  "cordovaPlatforms": [
+    "android"
+  ],
   "cordovaPlugins": [
-    "ch.ti8m.documenthandler",
-    "com.phonegap.plugins.pushplugin",
-    "cordova-plugin-camera",
-    "cordova-plugin-customurlscheme",
-    "cordova-plugin-device",
+    {
+      "variables": {
+        "URL_SCHEME": "moodlemobile"
+      },
+      "locator": "cordova-plugin-customurlscheme",
+      "id": "cordova-plugin-customurlscheme"
+    },
     "cordova-plugin-file",
     "cordova-plugin-file-transfer",
     "cordova-plugin-globalization",
@@ -48,10 +53,6 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
     "cordova-plugin-zip",
-    "ionic-plugin-keyboard",  
-    "net.tunts.webintent",
-  ],
-  "cordovaPlatforms": [
-    "android"
+    "ionic-plugin-keyboard"
   ]
 }

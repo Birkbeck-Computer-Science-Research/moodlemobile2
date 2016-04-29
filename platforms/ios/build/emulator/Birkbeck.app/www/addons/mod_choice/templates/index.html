@@ -6,7 +6,7 @@
     <ion-content>
         <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="choiceLoaded" on-refresh="refreshChoice()"></ion-refresher>
         <mm-loading hide-until="choiceLoaded">
-            <mm-course-mod-description description="description" watch="true"></mm-course-mod-description>
+            <mm-course-mod-description description="description" watch="true" showfull="true"></mm-course-mod-description>
 
             <!-- Activity availability messages -->
             <section class="card padding" ng-if="choice.timeopen != 0 && choice.timeopen > now">
@@ -42,8 +42,8 @@
             <!-- Choice results -->
             <section class="card text-center results" ng-if="canSeeResults">
                 <h1>Results</h1>
-                <div style="padding: 3px;height: 100%;border: 0px solid red" class="has-header has-footer">
-                    <nvd3 options='d3_options' data='data'></nvd3>
+                <div>
+                    <nvd3 options='d3_options' data='data' events='d3_events'></nvd3>
                 </div>
             </section>
             <!-- FIXME: comment Moodle's UI for now
