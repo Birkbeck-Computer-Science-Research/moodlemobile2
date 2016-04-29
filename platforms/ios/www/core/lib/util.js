@@ -512,7 +512,10 @@ angular.module('mm.core')
          * @return {Promise}        Promise resolved if the user confirms and rejected if he cancels.
          */
         self.showConfirm = function(template, title) {
-            return $ionicPopup.confirm({template: template, title: title}).then(function(confirmed) {
+            var ok = $translate.instant('mm.core.yes'),
+                cancel = $translate.instant('mm.core.no');
+
+            return $ionicPopup.confirm({template: template, title: title, okText: ok, cancelText: cancel}).then(function(confirmed) {
                 if (!confirmed) {
                     return $q.reject();
                 }

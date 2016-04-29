@@ -11,6 +11,10 @@
                         {
                             "xml": "<feature name=\"DocumentHandler\"><param name=\"ios-package\" value=\"DocumentHandler\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -23,6 +27,9 @@
         },
         "ch.ti8m.documenthandler": {
             "PACKAGE_NAME": "uk.ac.bbk.birkbeck"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "uk.ac.bbk.moodle"
         }
     },
     "dependent_plugins": {},
@@ -42,10 +49,19 @@
             "clobbers": [
                 "handleDocumentWithURL"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
         }
     ],
     "plugin_metadata": {
         "net.tunts.webintent": "0.2.1",
-        "ch.ti8m.documenthandler": "0.2.2"
+        "ch.ti8m.documenthandler": "0.2.2",
+        "cordova-plugin-splashscreen": "3.2.2"
     }
 }

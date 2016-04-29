@@ -1,19 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="uk.ac.bbk.moodle" version="0.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <preference name="AllowInlineMediaPlayback" value="false" />
-    <preference name="BackupWebStorage" value="cloud" />
-    <preference name="DisallowOverscroll" value="false" />
-    <preference name="EnableViewportScale" value="false" />
-    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
-    <preference name="MediaPlaybackRequiresUserAction" value="false" />
-    <preference name="SuppressesIncrementalRendering" value="false" />
-    <preference name="GapBetweenPages" value="0" />
-    <preference name="PageLength" value="0" />
-    <preference name="PaginationBreakingMode" value="page" />
-    <preference name="PaginationMode" value="unpaginated" />
+<widget id="uk.ac.bbk.moodle" version="0.0.18" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="LocalStorage">
         <param name="ios-package" value="CDVLocalStorage" />
     </feature>
+    <content src="index.html" />
+    <icon src="resources/ios/icon/icon-small@3x.png" />
+    <feature name="DocumentHandler">
+        <param name="ios-package" value="DocumentHandler" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>Birkbeck</name>
+    <description>Moodle @ Birckbeck</description>
+    <author email="pauls@dcs.bbk.ac.uk" href="http://bbk.ac.uk/">Paul Sharpe</author>
+    <access origin="*" />
+    <allow-navigation href="cdvfile:*" />
+    <allow-navigation href="content:*" />
+    <allow-navigation href="data:*" />
+    <allow-intent href="*" />
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" />
     <icon height="57" src="resources/ios/icon/icon.png" width="57" />
     <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
     <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -40,24 +47,21 @@
     <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
     <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
     <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
-    <name>Birkbeck</name>
-    <description>Moodle @ Birckbeck</description>
-    <author email="pauls@dcs.bbk.ac.uk" href="http://bbk.ac.uk/">Paul Sharpe</author>
-    <content src="index.html" />
-    <access origin="*" />
-    <allow-navigation href="cdvfile:*" />
-    <allow-navigation href="content:*" />
-    <allow-navigation href="data:*" />
-    <allow-intent href="*" />
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="GapBetweenPages" value="0" />
+    <preference name="PageLength" value="0" />
+    <preference name="PaginationBreakingMode" value="page" />
+    <preference name="PaginationMode" value="unpaginated" />
+    <preference name="Orientation" value="default" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="FadeSplashScreen" value="true" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
-    <icon src="resources/ios/icon/icon-small@3x.png" />
-    <feature name="DocumentHandler">
-        <param name="ios-package" value="DocumentHandler" />
-    </feature>
 </widget>

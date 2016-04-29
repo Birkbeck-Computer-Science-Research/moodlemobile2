@@ -1,60 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
-]>
-<svg version="1.1"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="24px" height="24px" viewBox="-3 0 24 24" style="overflow:visible;enable-background:new -3 0 24 24;"
-	 xml:space="preserve" preserveAspectRatio="xMinYMid meet">
-<defs>
-</defs>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="9.4995" y1="0" x2="9.4995" y2="24.0005">
-	<stop  offset="0" style="stop-color:#95BFF8"/>
-	<stop  offset="0.5569" style="stop-color:#84ADEF"/>
-	<stop  offset="1" style="stop-color:#7CA4EB"/>
-	<a:midPointStop  offset="0" style="stop-color:#95BFF8"/>
-	<a:midPointStop  offset="0.4" style="stop-color:#95BFF8"/>
-	<a:midPointStop  offset="1" style="stop-color:#7CA4EB"/>
-</linearGradient>
-<polygon style="fill:url(#SVGID_1_);" points="11.5,0 0,0 0,24 19,24 19,7.9 "/>
-<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="9.4995" y1="1" x2="9.4995" y2="23.0005">
-	<stop  offset="0" style="stop-color:#E7F4FC"/>
-	<stop  offset="1" style="stop-color:#DEEFFC"/>
-	<a:midPointStop  offset="0" style="stop-color:#E7F4FC"/>
-	<a:midPointStop  offset="0.5" style="stop-color:#E7F4FC"/>
-	<a:midPointStop  offset="1" style="stop-color:#DEEFFC"/>
-</linearGradient>
-<polygon style="fill:url(#SVGID_2_);" points="1,23 1,1 11.1,1 18,8.3 18,23 "/>
-<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="9.4995" y1="2" x2="9.4995" y2="22.0005">
-	<stop  offset="0" style="stop-color:#CEE9F9"/>
-	<stop  offset="1" style="stop-color:#BBDFF8"/>
-	<a:midPointStop  offset="0" style="stop-color:#CEE9F9"/>
-	<a:midPointStop  offset="0.5" style="stop-color:#CEE9F9"/>
-	<a:midPointStop  offset="1" style="stop-color:#BBDFF8"/>
-</linearGradient>
-<polygon style="fill:url(#SVGID_3_);" points="2,22 2,2 10.6,2 17,8.7 17,22 "/>
-<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="14.2451" y1="0" x2="14.2451" y2="9.3594">
-	<stop  offset="0" style="stop-color:#95BFF8"/>
-	<stop  offset="0.5569" style="stop-color:#84ADEF"/>
-	<stop  offset="1" style="stop-color:#7CA4EB"/>
-	<a:midPointStop  offset="0" style="stop-color:#95BFF8"/>
-	<a:midPointStop  offset="0.4" style="stop-color:#95BFF8"/>
-	<a:midPointStop  offset="1" style="stop-color:#7CA4EB"/>
-</linearGradient>
-<path style="fill:url(#SVGID_4_);" d="M10,9c0,0,5.2-1.5,9,0.4c0-0.1,0-1.5,0-1.5L11.5,0c0,0-1.8,0-2,0C12.1,3.7,10,9,10,9z"/>
-<linearGradient id="SVGID_5_" gradientUnits="userSpaceOnUse" x1="11.3223" y1="7.5449" x2="14.4504" y2="4.4168">
-	<stop  offset="0" style="stop-color:#E7F4FC"/>
-	<stop  offset="0.5181" style="stop-color:#E5F3FC"/>
-	<stop  offset="0.7045" style="stop-color:#DEF0FB"/>
-	<stop  offset="0.8371" style="stop-color:#D3EBFA"/>
-	<stop  offset="0.872" style="stop-color:#CEE9F9"/>
-	<stop  offset="1" style="stop-color:#BDD8F0"/>
-	<a:midPointStop  offset="0" style="stop-color:#E7F4FC"/>
-	<a:midPointStop  offset="0.87" style="stop-color:#E7F4FC"/>
-	<a:midPointStop  offset="0.872" style="stop-color:#CEE9F9"/>
-	<a:midPointStop  offset="0.5" style="stop-color:#CEE9F9"/>
-	<a:midPointStop  offset="1" style="stop-color:#BDD8F0"/>
-</linearGradient>
-<path style="fill:url(#SVGID_5_);" d="M17.5,7.8c-0.9-0.2-2-0.3-3.1-0.3c-1.1,0-2.1,0.1-3,0.3c0.4-1.6,0.7-4.1-0.2-6.4L17.5,7.8z"/>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="512.000000pt" height="512.000000pt" viewBox="0 0 512.000000 512.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.11, written by Peter Selinger 2001-2013
+</metadata>
+<g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+fill="#016b8f" stroke="none">
+<path d="M1237 4441 c-56 -36 -93 -89 -107 -156 -7 -34 -10 -582 -8 -1755 3
+-1549 4 -1708 19 -1741 23 -51 75 -107 123 -132 l41 -22 1255 0 c1000 0 1262
+3 1291 13 48 17 107 75 133 131 l21 46 0 1280 0 1280 -21 46 c-14 31 -148 185
+-399 460 -208 228 -405 442 -439 477 -108 112 -8 102 -999 102 l-863 0 -47
+-29z m2083 -731 c179 -193 327 -356 329 -361 2 -7 -113 -9 -310 -7 -280 3
+-317 5 -340 21 -47 32 -49 46 -49 410 l1 342 22 -26 c12 -15 168 -185 347
+-379z m-950 -434 c0 -58 -3 -75 -16 -80 -28 -11 -704 -7 -725 4 -16 9 -19 22
+-19 80 l0 70 380 0 380 0 0 -74z m1150 -640 c0 -58 -3 -75 -16 -80 -29 -11
+-1854 -7 -1875 4 -16 9 -19 22 -19 80 l0 70 955 0 955 0 0 -74z m-640 -640 c0
+-58 -3 -75 -16 -80 -29 -11 -1214 -7 -1235 4 -16 9 -19 22 -19 80 l0 70 635 0
+635 0 0 -74z m320 -640 c0 -58 -3 -75 -16 -80 -29 -11 -1534 -7 -1555 4 -16 9
+-19 22 -19 80 l0 70 795 0 795 0 0 -74z"/>
+</g>
 </svg>
