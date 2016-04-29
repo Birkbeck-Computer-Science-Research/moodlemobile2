@@ -1,5 +1,7 @@
 release: resources
 	cordova clean android
+	# seem to need next line to plumb config.json:versionname into "About"
+	ionic platform remove android && ionic platform add android
 	cordova build --release android
 	cd deploy-keys; rm -f birkbeck.apk; \
 	jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore app-name-release-key.keystore ../platforms/android/build/outputs/apk/android-release-unsigned.apk slapp; \
