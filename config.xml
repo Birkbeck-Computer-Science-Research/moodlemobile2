@@ -3,6 +3,7 @@
   <name>Birkbeck</name>
   <description>Moodle @ Birckbeck</description>
   <author href="http://bbk.ac.uk/" email="pauls@dcs.bbk.ac.uk">Paul Sharpe</author>
+  <content src="index.html" />
   <access origin="*"/>
   <allow-navigation href="cdvfile:*"/>
   <allow-navigation href="content:*"/>
