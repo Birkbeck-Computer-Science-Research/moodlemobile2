@@ -32,7 +32,8 @@
     "through": "^2.3.6"
   },
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ],
   "cordovaPlugins": [
     {
