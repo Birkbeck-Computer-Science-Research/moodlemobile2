@@ -1,13 +1,14 @@
 <?php
- 
-$url="https://moodle.slapp.space";
+include '../../config.php';
+$host    = $CFG->wwwroot;
+
 $function="local_mobile_mod_choice_get_choice_results";
 $function2="local_mobile_mod_choice_get_choices_by_courses";
-$token="<replace_with_web_services_user_token>"; // web services user
+$token=$CFG->wstoken;
  
 // Grabs choice details including title
 $ch2 = curl_init();
-curl_setopt($ch2, CURLOPT_URL, "$url/webservice/rest/server.php?wsfunction=$function2&wstoken=$token&moodlewsrestformat=json");
+curl_setopt($ch2, CURLOPT_URL, "$host/webservice/rest/server.php?wsfunction=$function2&wstoken=$token&moodlewsrestformat=json");
 curl_setopt($ch2, CURLOPT_RETURNTRANSFER, 1);
 $result2 = json_decode(curl_exec($ch2));
  
@@ -24,7 +25,7 @@ if ($choiceid < 1) {
 $colour="138,0,38"; // BBK burgundy
  
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, "$url/webservice/rest/server.php?wsfunction=$function&wstoken=$token&choiceid=$choiceid&moodlewsrestformat=json");
+curl_setopt($ch, CURLOPT_URL, "$host/webservice/rest/server.php?wsfunction=$function&wstoken=$token&choiceid=$choiceid&moodlewsrestformat=json");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 $result = json_decode(curl_exec($ch));
  

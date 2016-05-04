@@ -1,8 +1,10 @@
 <?php
+include '../../config.php';
+$host    = $CFG->wwwroot;
+$url_ws  = "$host/webservice/rest/server.php";
+$wstoken = $CFG->wstoken;
 
-// Get answers submitted to an "in your opinion" forum
-
-$forums = ws('local_mobile_mod_forum_get_forums_by_courses', 'courseids[0]=14'); # LPM
+$forums = ws('local_mobile_mod_forum_get_forums_by_courses', null);
 
 if (isset($_REQUEST['forumid'])) {
     $forumid = $_REQUEST['forumid'];
@@ -31,9 +33,8 @@ $forum    = ws('mod_forum_get_forum_discussions_paginated', "forumid=$forumid");
 $opinions = $forum->discussions;
 
 function ws($function, $params) {
+    global $url_ws, $wstoken;
     $c       = curl_init();
-    $url_ws  = "https://moodle.slapp.space/webservice/rest/server.php";
-    $wstoken = 'b926992720820536bc8e15dceb726311';
     $url     = "$url_ws?wsfunction=$function&wstoken=$wstoken&moodlewsrestformat=json";
     if ($params) {
         $url = $url . "&$params";
@@ -47,12 +48,13 @@ function ws($function, $params) {
 <!doctype html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="../mm.css">
     <meta http-equiv="refresh" content="10">
     <title>In Your Opinion</title>
 </head>
-<body>
-<h1><?php echo($question) ?></h1>
-<ul>
+<body class="iyo">
+<h1 class="iyo"><?php echo($question) ?></h1>
+<ul class="iyo">
 <?php foreach ($opinions as $opinion) {
     echo("<li>{$opinion->subject}</li>");
 } ?>

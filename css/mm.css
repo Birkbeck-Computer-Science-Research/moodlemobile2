@@ -1,5 +1,23 @@
 /* Birkbeck Moodle Mobile */
 
+/* In Your Opinion results */
+body.iyo {
+  background-color: #8a0026;
+  color: white;
+}
+h1.iyo {
+  font-family: Arial;
+  text-align: center;
+}
+ul.iyo {
+  font-family: Arial;
+  font-size: 150%;
+  vertical-align: middle;
+}
+ul.iyo li {
+  padding: .5em 0;
+}
+
 /* mod_choice */
 
 /* results */
@@ -7,7 +25,7 @@
     stroke-opacity: 0;
 }
 svg.nvd3-svg {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   padding-bottom: 2em;
 }
 section.results h1 {
