@@ -23,7 +23,37 @@ angular.module('mm.addons.grades')
  */
 .factory('$mmaGradesHandlers', function($mmaGrades, $state, $mmUtil, $mmContentLinksHelper, mmCoursesAccessMethods) {
 
-    var self = {};
+    var self = {},
+        viewGradesEnabledCache = {}; // We use a "cache" to decrease network usage.
+
+    /**
+     * Get a cache key to identify a course and a user.
+     *
+     * @param  {Number} courseId Course ID.
+     * @param  {Number} userId   User ID.
+     * @return {String}          Cache key.
+     */
+    function getCacheKey(courseId, userId) {
+        return courseId + '#' + userId;
+    }
+
+    /**
+     * Clear view grades cache.
+     * If a courseId and userId are specified, it will only delete the entry for that user and course.
+     *
+     * @module mm.addons.grades
+     * @ngdoc method
+     * @name $mmaGradesHandlers#clearViewGradesCache
+     * @param  {Number} [courseId] Course ID.
+     * @param  {Number} [userId]   User ID.
+     */
+    self.clearViewGradesCache = function(courseId, userId) {
+        if (courseId && userId) {
+            delete viewGradesEnabledCache[getCacheKey(courseId, userId)];
+        } else {
+            viewGradesEnabledCache = {};
+        }
+    };
 
     /**
      * Course nav handler.
@@ -77,6 +107,7 @@ angular.module('mm.addons.grades')
             return function($scope, $state) {
                 $scope.icon = 'ion-stats-bars';
                 $scope.title = 'mma.grades.grades';
+                $scope.class = 'mma-grades-mine-handler';
                 $scope.action = function($event, course) {
                     $event.preventDefault();
                     $event.stopPropagation();
@@ -118,7 +149,16 @@ angular.module('mm.addons.grades')
          * @return {Promise}        Promise resolved with true if plugin is enabled, rejected or resolved with false otherwise.
          */
         self.isEnabledForUser = function(user, courseId) {
-            return $mmaGrades.isPluginEnabledForCourse(courseId);
+            return $mmaGrades.isPluginEnabledForCourse(courseId).then(function() {
+                var cacheKey = getCacheKey(courseId, user.id);
+                if (typeof viewGradesEnabledCache[cacheKey] != 'undefined') {
+                    return viewGradesEnabledCache[cacheKey];
+                }
+                return $mmaGrades.isPluginEnabledForUser(courseId, user.id).then(function(enabled) {
+                    viewGradesEnabledCache[cacheKey] = enabled;
+                    return enabled;
+                });
+            });
         };
 
         /**
@@ -139,6 +179,7 @@ angular.module('mm.addons.grades')
              */
             return function($scope) {
                 $scope.title = 'mma.grades.viewgrades';
+                $scope.class = 'mma-grades-user-handler';
 
                 $scope.action = function($event) {
                     $event.preventDefault();
@@ -191,7 +232,7 @@ angular.module('mm.addons.grades')
          */
         self.getActions = function(siteIds, url) {
             // Check it's a grade URL.
-            if (url.indexOf('/grade/report/user/index.php') > -1) {
+            if (typeof self.handles(url) != 'undefined') {
                 var params = $mmUtil.extractUrlParams(url);
                 if (typeof params.id != 'undefined') {
                     var courseId = parseInt(params.id, 10);
@@ -220,8 +261,30 @@ angular.module('mm.addons.grades')
             return [];
         };
 
+        /**
+         * Check if the URL is handled by this handler. If so, returns the URL of the site.
+         *
+         * @param  {String} url URL to check.
+         * @return {String}     Site URL. Undefined if the URL doesn't belong to this handler.
+         */
+        self.handles = function(url) {
+            var position = url.indexOf('/grade/report/user/index.php');
+            if (position > -1) {
+                return url.substr(0, position);
+            }
+        };
+
         return self;
     };
 
     return self;
+})
+
+.run(function($mmaGradesHandlers, $mmEvents, mmCoreEventLogout, mmUserEventProfileRefreshed) {
+    $mmEvents.on(mmCoreEventLogout, $mmaGradesHandlers.clearViewGradesCache);
+    $mmEvents.on(mmUserEventProfileRefreshed, function(data) {
+        if (data) {
+            $mmaGradesHandlers.clearViewGradesCache(data.courseid, data.userid);
+        }
+    });
 });

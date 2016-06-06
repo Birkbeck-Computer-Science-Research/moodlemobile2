@@ -86,7 +86,7 @@ angular.module('mm.core')
         // formatURL adds the protocol if is missing.
         siteurl = $mmUtil.formatURL(siteurl);
 
-        if (siteurl.indexOf('://localhost') == -1 && !$mmUtil.isValidURL(siteurl)) {
+        if (!$mmUtil.isValidURL(siteurl)) {
             return $mmLang.translateAndReject('mm.login.invalidsite');
         } else if (!$mmApp.isOnline()) {
             return $mmLang.translateAndReject('mm.core.networkerrormsg');
@@ -222,7 +222,7 @@ angular.module('mm.core')
                     currentSite = candidateSite;
                     // Store session.
                     self.login(siteid);
-                    $mmEvents.trigger(mmCoreEventSiteAdded);
+                    $mmEvents.trigger(mmCoreEventSiteAdded, siteid);
                 } else {
                     return $translate(validation.error, validation.params).then(function(error) {
                         return $q.reject(error);
@@ -322,7 +322,7 @@ angular.module('mm.core')
      */
     function validateSiteInfo(infos) {
         if (!infos.firstname || !infos.lastname) {
-            var moodleLink = '<a mm-browser href="' + infos.siteurl + '">' + infos.siteurl + '</a>';
+            var moodleLink = '<a mm-link href="' + infos.siteurl + '">' + infos.siteurl + '</a>';
             return {error: 'mm.core.requireduserdatamissing', params: {'$a': moodleLink}};
         }
         return true;
@@ -575,9 +575,10 @@ angular.module('mm.core')
      */
     self.logout = function() {
         currentSite = undefined;
-        $mmEvents.trigger(mmCoreEventLogout);
-        return $mmApp.getDB().remove(mmCoreCurrentSiteStore, 1);
-    }
+        return $mmApp.getDB().remove(mmCoreCurrentSiteStore, 1).finally(function() {
+            $mmEvents.trigger(mmCoreEventLogout);
+        });
+    };
 
     /**
      * Restores the session to the previous one so the user doesn't has to login everytime the app is started.
@@ -677,12 +678,15 @@ angular.module('mm.core')
      * @param {String} url         URL to check.
      * @param {Boolean} prioritize True if it should prioritize current site. If the URL belongs to current site then it won't
      *                             check any other site, it will only return current site.
+     * @param {String} [username]  If set, it will return only the sites where the current user has this username.
      * @return {Promise}           Promise resolved with the site IDs (array).
      */
-    self.getSiteIdsFromUrl = function(url, prioritize) {
+    self.getSiteIdsFromUrl = function(url, prioritize, username) {
         // Check current site first, it has priority over the rest of sites.
         if (prioritize && currentSite && currentSite.containsUrl(url)) {
-            return $q.when([currentSite.getId()]);
+            if (!username || currentSite.getInfo().username == username) {
+                return $q.when([currentSite.getId()]);
+            }
         }
 
         // Check if URL has http(s) protocol.
@@ -708,13 +712,29 @@ angular.module('mm.core')
                     sites[site.id] = $mmSitesFactory.makeSite(site.id, site.siteurl, site.token, site.infos);
                 }
                 if (sites[site.id].containsUrl(url)) {
-                    ids.push(site.id);
+                    if (!username || sites[site.id].getInfo().username == username) {
+                        ids.push(site.id);
+                    }
                 }
             });
             return ids;
         }).catch(function() {
             // Shouldn't happen.
             return [];
+        });
+    };
+
+    /**
+     * Get the site ID stored in DB ad current site.
+     *
+     * @module mm.core
+     * @ngdoc method
+     * @name $mmSitesManager#getStoredCurrentSiteId
+     * @return {Promise} Promise resolved with the site ID.
+     */
+    self.getStoredCurrentSiteId = function() {
+        return $mmApp.getDB().get(mmCoreCurrentSiteStore, 1).then(function(current_site) {
+            return current_site.siteid;
         });
     };
 

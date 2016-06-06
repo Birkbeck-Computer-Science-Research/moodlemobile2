@@ -36,13 +36,6 @@
     "ios"
   ],
   "cordovaPlugins": [
-    {
-      "variables": {
-        "URL_SCHEME": "moodlemobile"
-      },
-      "locator": "cordova-plugin-customurlscheme",
-      "id": "cordova-plugin-customurlscheme"
-    },
     "cordova-plugin-file",
     "cordova-plugin-file-transfer",
     "cordova-plugin-globalization",
@@ -53,7 +46,34 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
+    {
+      "locator": "https://github.com/Tunts/WebIntent",
+      "id": "net.tunts.webintent"
+    },
+    {
+      "variables": {
+        "URL_SCHEME": "moodlemobile"
+      },
+      "locator": "cordova-plugin-customurlscheme",
+      "id": "cordova-plugin-customurlscheme"
+    },
+    "ionic-plugin-keyboard",
+    {
+      "locator": "https://github.com/ti8m/DocumentHandler",
+      "id": "ch.ti8m.documenthandler"
+    },
+    "cordova-plugin-local-notifications-mm",
     "cordova-plugin-zip",
-    "ionic-plugin-keyboard"
+    {
+      "variables": {
+        "SENDER_ID": "694767596569"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    }
+  ],
+  "cordovaPlatforms": [
+    "android",
+    "ios"
   ]
 }

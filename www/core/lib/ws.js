@@ -21,12 +21,13 @@ angular.module('mm.core')
  * @ngdoc service
  * @name $mmWS
  */
-.factory('$mmWS', function($http, $q, $log, $mmLang, $cordovaFileTransfer, $mmApp, $mmFS, $mmText, mmCoreSessionExpired,
-            mmCoreUserDeleted, $translate, $window, $mmUtil) {
+.factory('$mmWS', function($http, $q, $log, $mmLang, $cordovaFileTransfer, $mmApp, $mmFS, mmCoreSessionExpired,
+            mmCoreUserDeleted, $translate, $window) {
 
     $log = $log.getInstance('$mmWS');
 
-    var self = {};
+    var self = {},
+        mimeTypeCache = {}; // A "cache" to store file mimetypes to prevent performing too many HEAD requests.
 
     /**
      * A wrapper function for a moodle WebService call.
@@ -148,20 +149,22 @@ angular.module('mm.core')
     self.downloadFile = function(url, path, background) {
         $log.debug('Downloading file ' + url);
 
-        return $mmFS.getBasePathToDownload().then(function(basePath) {
-            // Use a tmp path to download the file and then move it to final location. This is because if the download fails,
-            // the local file is deleted.
-            var tmpPath = basePath + path + '.tmp';
-            return $cordovaFileTransfer.download(url, tmpPath, { encodeURI: false }, true).then(function() {
-                return $mmFS.moveFile(path + '.tmp', path).then(function(movedEntry) {
+        // Use a tmp path to download the file and then move it to final location.This is because if the download fails,
+        // the local file is deleted.
+        var tmpPath = path + '.tmp';
+
+        // Create the tmp file as an empty file.
+        return $mmFS.createFile(tmpPath).then(function(fileEntry) {
+            return $cordovaFileTransfer.download(url, fileEntry.toURL(), { encodeURI: false }, true).then(function() {
+                return $mmFS.moveFile(tmpPath, path).then(function(movedEntry) {
                     $log.debug('Success downloading file ' + url + ' to ' + path);
                     return movedEntry;
                 });
-            }, function(err) {
-                $log.error('Error downloading ' + url + ' to ' + path);
-                $log.error(JSON.stringify(err));
-                return $q.reject(err);
             });
+        }).catch(function(err) {
+            $log.error('Error downloading ' + url + ' to ' + path);
+            $log.error(JSON.stringify(err));
+            return $q.reject(err);
         });
     };
 
@@ -214,7 +217,7 @@ angular.module('mm.core')
      * @module mm.core
      * @ngdoc method
      * @name $mmWS#getRemoteFileSize
-     * @param {Object} uri File URI.
+     * @param {Object} url File URL.
      * @return {Promise}   Promise resolved with the size or -1 if failure.
      */
     self.getRemoteFileSize = function(url) {
@@ -226,6 +229,30 @@ angular.module('mm.core')
             return -1;
         }).catch(function() {
             return -1;
+        });
+    };
+
+    /*
+     * Perform a HEAD request to get the mimetype of a remote file.
+     *
+     * @module mm.core
+     * @ngdoc method
+     * @name $mmWS#getRemoteFileMimeType
+     * @param  {Object} url          File URL.
+     * @param  {Boolean} ignoreCache True to ignore cache, false otherwise.
+     * @return {Promise}             Promise resolved with the mimetype or '' if failure.
+     */
+    self.getRemoteFileMimeType = function(url, ignoreCache) {
+        if (mimeTypeCache[url] && !ignoreCache) {
+            promise = $q.when(mimeTypeCache[url]);
+        }
+
+        return $http.head(url).then(function(data) {
+            var mimeType = data.headers('Content-Type');
+            mimeTypeCache[url] = mimeType;
+            return mimeType || '';
+        }).catch(function() {
+            return '';
         });
     };
 
@@ -274,7 +301,7 @@ angular.module('mm.core')
         siteurl = preSets.siteurl + '/webservice/rest/server.php?moodlewsrestformat=json';
 
         // Serialize data.
-        data = $mmUtil.param(data);
+        data = serializeParams(data);
 
         // Perform sync request using XMLHttpRequest.
         xhr = new $window.XMLHttpRequest();
@@ -328,6 +355,42 @@ angular.module('mm.core')
 
         return data;
     };
+
+    /**
+     * Serialize an object to be used in a request.
+     *
+     * @param  {Object} obj Object to serialize.
+     * @return {String}     Serialization of the object.
+     */
+    function serializeParams(obj) {
+        var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
+
+        for (name in obj) {
+            value = obj[name];
+
+            if (value instanceof Array) {
+                for (i = 0; i < value.length; ++i) {
+                    subValue = value[i];
+                    fullSubName = name + '[' + i + ']';
+                    innerObj = {};
+                    innerObj[fullSubName] = subValue;
+                    query += serializeParams(innerObj) + '&';
+                }
+            }
+            else if (value instanceof Object) {
+                for (subName in value) {
+                    subValue = value[subName];
+                    fullSubName = name + '[' + subName + ']';
+                    innerObj = {};
+                    innerObj[fullSubName] = subValue;
+                    query += serializeParams(innerObj) + '&';
+                }
+            }
+            else if (value !== undefined && value !== null) query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+        }
+
+        return query.length ? query.substr(0, query.length - 1) : query;
+    }
 
     return self;
 

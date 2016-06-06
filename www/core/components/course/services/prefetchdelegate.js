@@ -47,7 +47,7 @@ angular.module('mm.core')
      *                             - component (String) Handler's component.
      *                             - getDownloadSize(module, courseid) (Number|Promise) Get the download size of a module.
      *                             - isEnabled() (Boolean|Promise) Whether or not the handler is enabled on a site level.
-     *                             - prefetch(module, courseid) (Promise) Prefetches a module.
+     *                             - prefetch(module, courseid, single) (Promise) Prefetches a module.
      *                             - (Optional) getFiles(module, courseid) (Object[]|Promise) Get list of files. If not defined,
      *                                                                      we'll assume they're in module.contents.
      *                             - (Optional) determineStatus(status) (String) Returns status to show based on current. E.g. for
@@ -56,6 +56,9 @@ angular.module('mm.core')
      *                                                                 If not defined we'll calculate it using module files.
      *                             - (Optional) getTimemodified(module, courseid) (Number|Promise) Returns the module timemodified.
      *                                                                 If not defined we'll calculate it using module files.
+     *                             - (Optional) isDownloadable(module, courseid) (Boolean|Promise) Check if a module can be
+     *                                                                 downloaded. If function is not defined, we assume that all
+     *                                                                 modules will be downloadable.
      */
     self.registerPrefetchHandler = function(addon, handles, handler) {
         if (typeof prefetchHandlers[handles] !== 'undefined') {
@@ -77,7 +80,8 @@ angular.module('mm.core')
         var enabledHandlers = {},
             self = {},
             deferreds = {},
-            statusCache = {}; // To speed up the getModulesStatus function.
+            statusCache = {}, // To speed up the getModulesStatus function.
+            lastUpdateHandlersStart;
 
         $log = $log.getInstance('$mmCoursePrefetchDelegate');
 
@@ -144,16 +148,22 @@ angular.module('mm.core')
                 // Check if the module has a prefetch handler.
                 var handler = enabledHandlers[module.modname];
                 if (handler) {
-                    // Check if the file will be downloaded.
-                    promises.push(self.getModuleStatus(module, courseid).then(function(modstatus) {
-                        if (modstatus === mmCoreNotDownloaded || modstatus === mmCoreOutdated) {
-                            return $q.when(handler.getDownloadSize(module, courseid)).then(function(modulesize) {
-                                // Add the size of the downloadable files.
-                                size = size + modulesize;
-                            }).catch(function() {
-                                // Ignore errors.
-                            });
+                    // Check if the module is downloadable.
+                    promises.push(self.isModuleDownloadable(module, courseid).then(function(downloadable) {
+                        if (!downloadable) {
+                            return;
                         }
+
+                        return self.getModuleStatus(module, courseid).then(function(modstatus) {
+                            if (modstatus === mmCoreNotDownloaded || modstatus === mmCoreOutdated) {
+                                return $q.when(handler.getDownloadSize(module, courseid)).then(function(modulesize) {
+                                    // Add the size of the downloadable files.
+                                    size = size + modulesize;
+                                }).catch(function() {
+                                    // Ignore errors.
+                                });
+                            }
+                        });
                     }));
                 }
             });
@@ -181,44 +191,47 @@ angular.module('mm.core')
             module.contents = module.contents || [];
 
             if (handler) {
-                // If the handler doesn't define a function to get the files, use module.contents.
-                var promise = handler.getFiles ? $q.when(handler.getFiles(module, courseid)) : $q.when(module.contents);
-
-                return promise.then(function(files) {
-
-                    if (files.length === 0) { // No files, treat is as downloaded.
-                        return $q.when(mmCoreDownloaded);
+                // Check if the module is downloadable.
+                return self.isModuleDownloadable(module, courseid).then(function(downloadable) {
+                    if (!downloadable) {
+                        return mmCoreNotDownloadable;
                     }
 
-                    // Get revision and timemodified if they aren't defined.
-                    // If handler doesn't define a function to get them, get them from file list.
-                    var promises = [];
+                    // If the handler doesn't define a function to get the files, use module.contents.
+                    var promise = handler.getFiles ? $q.when(handler.getFiles(module, courseid)) : $q.when(module.contents);
 
-                    if (typeof revision == 'undefined') {
-                        if (handler.getRevision) {
-                            promises.push($q.when(handler.getRevision(module, courseid)).then(function(rev) {
-                                revision = rev;
-                            }));
-                        } else {
-                            revision = $mmFilepool.getRevisionFromFileList(files);
+                    return promise.then(function(files) {
+
+                        // Get revision and timemodified if they aren't defined.
+                        // If handler doesn't define a function to get them, get them from file list.
+                        var promises = [];
+
+                        if (typeof revision == 'undefined') {
+                            if (handler.getRevision) {
+                                promises.push($q.when(handler.getRevision(module, courseid)).then(function(rev) {
+                                    revision = rev;
+                                }));
+                            } else {
+                                revision = $mmFilepool.getRevisionFromFileList(files);
+                            }
                         }
-                    }
 
-                    if (typeof timemodified == 'undefined') {
-                        if (handler.getTimemodified) {
-                            promises.push($q.when(handler.getTimemodified(module, courseid)).then(function(timemod) {
-                                timemodified = timemod;
-                            }));
-                        } else {
-                            timemodified = $mmFilepool.getTimemodifiedFromFileList(files);
+                        if (typeof timemodified == 'undefined') {
+                            if (handler.getTimemodified) {
+                                promises.push($q.when(handler.getTimemodified(module, courseid)).then(function(timemod) {
+                                    timemodified = timemod;
+                                }));
+                            } else {
+                                timemodified = $mmFilepool.getTimemodifiedFromFileList(files);
+                            }
                         }
-                    }
 
-                    return $q.all(promises).then(function() {
-                        // Now get the status.
-                        return $mmFilepool.getPackageStatus(siteid, handler.component, module.id, revision, timemodified)
-                                .then(function(status) {
-                            return self.determineModuleStatus(module, status, true);
+                        return $q.all(promises).then(function() {
+                            // Now get the status.
+                            return $mmFilepool.getPackageStatus(siteid, handler.component, module.id, revision, timemodified)
+                                    .then(function(status) {
+                                return self.determineModuleStatus(module, status, true);
+                            });
                         });
                     });
                 });
@@ -277,14 +290,16 @@ angular.module('mm.core')
                     }
 
                     promises.push(promise.then(function(modstatus) {
-                        // Update status cache.
-                        statusCache[packageId] = {
-                            status: modstatus,
-                            sectionid: sectionid
-                        };
-                        status = $mmFilepool.determinePackagesStatus(status, modstatus);
-                        result[modstatus].push(module);
-                        result.total++;
+                        if (modstatus != mmCoreNotDownloadable) {
+                            // Update status cache.
+                            statusCache[packageId] = {
+                                status: modstatus,
+                                sectionid: sectionid
+                            };
+                            status = $mmFilepool.determinePackagesStatus(status, modstatus);
+                            result[modstatus].push(module);
+                            result.total++;
+                        }
                     }));
                 }
             });
@@ -319,6 +334,54 @@ angular.module('mm.core')
          */
         self.isBeingDownloaded = function(id) {
             return deferreds[$mmSite.getId()] && deferreds[$mmSite.getId()][id];
+        };
+
+        /**
+         * Check if a time belongs to the last update handlers call.
+         * This is to handle the cases where updatePrefetchHandlers don't finish in the same order as they're called.
+         *
+         * @module mm.core
+         * @ngdoc method
+         * @name $mmCoursePrefetchDelegate#isLastUpdateCall
+         * @param  {Number}  time Time to check.
+         * @return {Boolean}      True if equal, false otherwise.
+         */
+        self.isLastUpdateCall = function(time) {
+            if (!lastUpdateHandlersStart) {
+                return true;
+            }
+            return time == lastUpdateHandlersStart;
+        };
+
+        /**
+         * Check if a module is downloadable.
+         *
+         * @module mm.core
+         * @ngdoc method
+         * @name $mmCoursePrefetchDelegate#isModuleDownloadable
+         * @param {Object} module   Module.
+         * @param {Number} courseid Course ID the module belongs to.
+         * @return {Promise}        Promise resolved with true if downloadable, false otherwise.
+         */
+        self.isModuleDownloadable = function(module, courseid) {
+            var handler = enabledHandlers[module.modname],
+                promise;
+
+            if (handler) {
+                if (typeof handler.isDownloadable == 'function') {
+                    promise = $q.when(handler.isDownloadable(module, courseid));
+                } else {
+                    promise = $q.when(true); // Function not defined, assume all modules are downloadable.
+                }
+
+                return promise.catch(function() {
+                    // Something went wrong, assume not downloadable.
+                    return false;
+                });
+            } else {
+                // No handler for module, so it's not downloadable.
+                return $q.when(false);
+            }
         };
 
         /**
@@ -360,8 +423,14 @@ angular.module('mm.core')
                 // Check if the module has a prefetch handler.
                 var handler = enabledHandlers[module.modname];
                 if (handler) {
-                    promises.push(handler.prefetch(module, courseid).then(function() {
-                        deferred.notify(module.id);
+                    promises.push(self.isModuleDownloadable(module, courseid).then(function(downloadable) {
+                        if (!downloadable) {
+                            return;
+                        }
+
+                        return handler.prefetch(module, courseid).then(function() {
+                            deferred.notify(module.id);
+                        });
                     }));
                 }
             });
@@ -385,11 +454,13 @@ angular.module('mm.core')
          * @name $mmCoursePrefetchDelegate#updatePrefetchHandler
          * @param {String} handles The module this handler handles, e.g. forum, label.
          * @param {Object} handlerInfo The handler details.
+         * @param  {Number} time Time this update process started.
          * @return {Promise} Resolved when enabled, rejected when not.
          * @protected
          */
-        self.updatePrefetchHandler = function(handles, handlerInfo) {
-            var promise;
+        self.updatePrefetchHandler = function(handles, handlerInfo, time) {
+            var promise,
+                siteId = $mmSite.getId();
 
             if (typeof handlerInfo.instance === 'undefined') {
                 handlerInfo.instance = $mmUtil.resolveObject(handlerInfo.handler, true);
@@ -402,14 +473,18 @@ angular.module('mm.core')
             }
 
             // Checks if the prefetch is enabled.
-            return promise.then(function(enabled) {
-                if (enabled) {
-                    enabledHandlers[handles] = handlerInfo.instance;
-                } else {
-                    return $q.reject();
+            return promise.catch(function() {
+                return false;
+            }).then(function(enabled) {
+                // Verify that this call is the last one that was started.
+                // Check that site hasn't changed since the check started.
+                if (self.isLastUpdateCall(time) && $mmSite.isLoggedIn() && $mmSite.getId() === siteId) {
+                    if (enabled) {
+                        enabledHandlers[handles] = handlerInfo.instance;
+                    } else {
+                        delete enabledHandlers[handles];
+                    }
                 }
-            }).catch(function() {
-                delete enabledHandlers[handles];
             });
         };
 
@@ -423,13 +498,16 @@ angular.module('mm.core')
          * @protected
          */
         self.updatePrefetchHandlers = function() {
-            var promises = [];
+            var promises = [],
+                now = new Date().getTime();
 
             $log.debug('Updating prefetch handlers for current site.');
 
+            lastUpdateHandlersStart = now;
+
             // Loop over all the prefetch handlers.
             angular.forEach(prefetchHandlers, function(handlerInfo, handles) {
-                promises.push(self.updatePrefetchHandler(handles, handlerInfo));
+                promises.push(self.updatePrefetchHandler(handles, handlerInfo, now));
             });
 
             return $q.all(promises).then(function() {
@@ -476,9 +554,10 @@ angular.module('mm.core')
 })
 
 .run(function($mmEvents, mmCoreEventLogin, mmCoreEventSiteUpdated, mmCoreEventLogout, $mmCoursePrefetchDelegate, $mmSite,
-            mmCoreEventPackageStatusChanged) {
+            mmCoreEventPackageStatusChanged, mmCoreEventRemoteAddonsLoaded) {
     $mmEvents.on(mmCoreEventLogin, $mmCoursePrefetchDelegate.updatePrefetchHandlers);
     $mmEvents.on(mmCoreEventSiteUpdated, $mmCoursePrefetchDelegate.updatePrefetchHandlers);
+    $mmEvents.on(mmCoreEventRemoteAddonsLoaded, $mmCoursePrefetchDelegate.updatePrefetchHandlers);
     $mmEvents.on(mmCoreEventLogout, $mmCoursePrefetchDelegate.clearStatusCache);
     $mmEvents.on(mmCoreEventPackageStatusChanged, function(data) {
         if (data.siteid === $mmSite.getId()) {

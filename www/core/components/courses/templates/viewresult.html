@@ -1,6 +1,6 @@
 <ion-view>
     <ion-nav-title><mm-format-text watch="true">{{ title }}</mm-format-text></ion-nav-title>
-    <ion-content padding="true">
+    <ion-content padding="true" mm-state-class>
         <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" on-refresh="doRefresh()" ng-if="courseLoaded"></ion-refresher>
         <mm-loading hide-until="courseLoaded">
             <div ng-if="course" class="list card">
@@ -31,7 +31,7 @@
                     <p>{{ 'mm.courses.notenrollable' | translate }}</p>
                 </div>
                 <div class="item tabs tabs-icon-left" ng-show="course._handlers && course._handlers.length">
-                    <a ng-repeat="handler in course._handlers | orderBy:'-priority'" ng-controller="handler.controller" ng-click="action($event, course)" class="tab-item active" title="{{title | translate}}">
+                    <a ng-repeat="handler in course._handlers | orderBy:'-priority'" ng-controller="handler.controller" ng-click="action($event, course)" class="tab-item active mm-courses-handler {{class}}" title="{{title | translate}}">
                         <i class="icon {{icon}}"></i> {{title | translate}}
                     </a>
                 </div>

@@ -15,6 +15,7 @@
 angular.module('mm.core.login')
 
 .constant('mmLoginSSOCode', 2) // This code is returned by local_mobile Moodle plugin if SSO in browser is required.
+.constant('mmLoginSSOInAppCode', 3)
 .constant('mmLoginLaunchSiteURL', 'mmLoginLaunchSiteURL')
 .constant('mmLoginLaunchPassport', 'mmLoginLaunchPassport')
 
@@ -25,12 +26,14 @@ angular.module('mm.core.login')
  * @ngdoc service
  * @name $mmLoginHelper
  */
-.factory('$mmLoginHelper', function($q, $log, $mmConfig, mmLoginSSOCode, mmLoginLaunchSiteURL, mmLoginLaunchPassport,
-            md5, $mmSite, $mmSitesManager, $mmLang, $mmUtil, $state, mmCoreConfigConstants) {
+.factory('$mmLoginHelper', function($q, $log, $mmConfig, mmLoginSSOCode, mmLoginSSOInAppCode, mmLoginLaunchSiteURL,
+            mmLoginLaunchPassport, md5, $mmSite, $mmSitesManager, $mmLang, $mmUtil, $state, $mmAddonManager,
+            $translate, mmCoreConfigConstants) {
 
     $log = $log.getInstance('$mmLoginHelper');
 
-    var self = {};
+    var self = {},
+        isSSOLoginOngoing = false;
 
     /**
      * Go to the view to add a new site.
@@ -48,6 +51,26 @@ angular.module('mm.core.login')
         } else {
             return $state.go('mm_login.site');
         }
+    };
+
+    /**
+     * Go to the initial page of a site depending on 'userhomepage' setting.
+     *
+     * @module mm.core.login
+     * @ngdoc method
+     * @name $mmLoginHelper#goToSiteInitialPage
+     * @return {Promise} Promise resolved when the state changes.
+     */
+    self.goToSiteInitialPage = function() {
+        if ($mmSite.getInfo() && $mmSite.getInfo().userhomepage === 0) {
+            // Configured to go to Site Home. Check if plugin is installed in the app.
+            var $mmaFrontpage = $mmAddonManager.get('$mmaFrontpage');
+            if ($mmaFrontpage) {
+                return $state.go('site.mm_course-section');
+            }
+        }
+
+        return $state.go('site.mm_courses');
     };
 
     /**
@@ -72,7 +95,20 @@ angular.module('mm.core.login')
      * @return {Boolean}      True if SSO login is needed, false othwerise.
      */
     self.isSSOLoginNeeded = function(code) {
-        return code == mmLoginSSOCode;
+        return code == mmLoginSSOCode || code == mmLoginSSOInAppCode;
+    };
+
+    /**
+     * Check if there's an SSO authentication ongoing. This should be true if the app was opened by a browser because of
+     * a SSO login and the authentication hasn't finished yet.
+     *
+     * @module mm.core.login
+     * @ngdoc method
+     * @name $mmLoginHelper#isSSOLoginOngoing
+     * @return {Boolean} True if SSO is ongoing, false otherwise.
+     */
+    self.isSSOLoginOngoing = function() {
+        return isSSOLoginOngoing;
     };
 
     /**
@@ -82,21 +118,46 @@ angular.module('mm.core.login')
      * @ngdoc method
      * @name $mmLoginHelper#openBrowserForSSOLogin
      * @param {String} siteurl URL of the site where the SSO login will be performed.
+     * @param {Number} typeOfLogin mmLoginSSOCode or mmLoginSSOInAppCode
      */
-    self.openBrowserForSSOLogin = function(siteurl) {
+    self.openBrowserForSSOLogin = function(siteurl, typeOfLogin) {
         var passport = Math.random() * 1000;
         var loginurl = siteurl + "/local/mobile/launch.php?service=" + mmCoreConfigConstants.wsextservice;
         loginurl += "&passport=" + passport;
+        loginurl += "&urlscheme=" + mmCoreConfigConstants.customurlscheme;
 
         // Store the siteurl and passport in $mmConfig for persistence. We are "configuring"
         // the app to wait for an SSO. $mmConfig shouldn't be used as a temporary storage.
         $mmConfig.set(mmLoginLaunchSiteURL, siteurl);
         $mmConfig.set(mmLoginLaunchPassport, passport);
 
-        $mmUtil.openInBrowser(loginurl);
-        if (navigator.app) {
-            navigator.app.exitApp();
+        if (typeOfLogin == mmLoginSSOInAppCode) {
+            $translate('mm.login.cancel').then(function(cancelStr) {
+                var options = {
+                    clearsessioncache: 'yes', // Clear the session cache to allow for multiple logins.
+                    closebuttoncaption: cancelStr,
+                };
+                $mmUtil.openInApp(loginurl, options);
+            });
+        } else {
+            $mmUtil.openInBrowser(loginurl);
+            if (navigator.app) {
+                navigator.app.exitApp();
+            }
         }
+    };
+
+    /**
+     * Set the "SSO authentication ongoing" flag to true or false.
+     *
+     * @module mm.core.login
+     * @ngdoc method
+     * @name $mmLoginHelper#setSSOLoginOngoing
+     * @param {Boolean} value Value to set.
+     * @return {Void}
+     */
+    self.setSSOLoginOngoing = function(value) {
+        isSSOLoginOngoing = value;
     };
 
     /**

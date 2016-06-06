@@ -227,12 +227,17 @@ angular.module('mm.core.course')
      * @param {Number} moduleId    The module ID.
      * @param {Number} [courseId]  The course ID. Recommended to speed up the process and minimize data usage.
      * @param {Number} [sectionId] The section ID.
+     * @param {Boolean} [preferCache=false] True if shouldn't call WS if data is cached, false otherwise.
      * @return {Promise}
      */
-    self.getModule = function(moduleId, courseId, sectionId) {
+    self.getModule = function(moduleId, courseId, sectionId, preferCache) {
 
         if (!moduleId) {
             return $q.reject();
+        }
+
+        if (typeof preferCache == 'undefined') {
+            preferCache = false;
         }
 
         var promise;
@@ -260,7 +265,8 @@ angular.module('mm.core.course')
                 ]
             };
             preSets = {
-                cacheKey: getModuleCacheKey(moduleId)
+                cacheKey: getModuleCacheKey(moduleId),
+                omitExpires: preferCache
             };
 
             if (sectionId) {
@@ -360,13 +366,14 @@ angular.module('mm.core.course')
 
             // Get all the sections in the course and iterate over them to find it.
             return self.getSections(courseId, {}, siteId).then(function(sections) {
-                sections.forEach(function(section) {
-                    section.modules.forEach(function(module) {
-                        if (module.id == moduleId) {
+                for (var i = 0, seclen = sections.length; i < seclen; i++) {
+                    var section = sections[i];
+                    for (var j = 0, modlen = section.modules.length; j < modlen; j++) {
+                        if (section.modules[j].id == moduleId) {
                             return section.id;
                         }
-                    });
-                });
+                    }
+                }
                 // Not found.
                 return $q.reject();
             });
