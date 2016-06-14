@@ -23,6 +23,6 @@
   "dependencies": {
     "nvd3": "~1.8.2",
     "d3": "^3.5.15",
-    "angular-nvd3": "^1.0.5"
+    "angular-nvd3": "^1.0.4"
   }
 }
