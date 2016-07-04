@@ -1,5 +1,6 @@
 {
     "app_id" : "uk.ac.bbk.moodle",
+    "siteurl" : "https://moodle.bbk.ac.uk",
     "versioncode" : "2009",
     "versionname" : "0.3.21",
     "cache_expiration_time" : 300000,
