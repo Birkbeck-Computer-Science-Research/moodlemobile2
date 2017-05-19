@@ -8,5 +8,9 @@ hooks/
 www/build
 .sass-cache/
 www/lib
+#<<<<<<< HEAD
 /nbproject/private/
 .idea
+#=======
+e2e/build
+#>>>>>>> upstream/master

@@ -1,11 +1,3 @@
 {
-    "addsubmission": "Besvar opgaven",
-    "allowsubmissionsfromdate": "Tillad aflevering fra",
-    "attemptnumber": "Antal forsøg",
-    "cutoffdate": "Skæringsdato",
-    "duedate": "Afleveringsdato",
-    "duedateno": "Ingen afleveringsfrist",
-    "submissions": "Afleveringer",
-    "userwithid": "Bruger med Id {{id}}",
-    "viewsubmission": "Se aflevering"
+    "pluginname": "Opgave"
 }

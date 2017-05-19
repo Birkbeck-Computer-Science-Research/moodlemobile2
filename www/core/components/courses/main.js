@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-angular.module('mm.core.courses', [])
+angular.module('mm.core.courses', ['mm.core.contentlinks'])
 
 .constant('mmCoursesSearchComponent', 'mmCoursesSearch')
 .constant('mmCoursesSearchPerPage', 20) // Max of courses per page when searching courses.
@@ -59,12 +59,37 @@ angular.module('mm.core.courses', [])
                 controller: 'mmCoursesViewResultCtrl'
             }
         }
+    })
+
+    .state('site.mm_coursescategories', {
+        url: '/mm_coursescategories',
+        params: {
+            categoryid: null
+        },
+        views: {
+            'site': {
+                templateUrl: 'core/components/courses/templates/coursecategories.html',
+                controller: 'mmCourseCategoriesCtrl'
+            }
+        }
+    })
+
+    .state('site.mm_availablecourses', {
+        url: '/mm_availablecourses',
+        views: {
+            'site': {
+                templateUrl: 'core/components/courses/templates/availablecourses.html',
+                controller: 'mmCoursesAvailableCtrl'
+            }
+        }
     });
 
 })
 
 .config(function($mmContentLinksDelegateProvider) {
-    $mmContentLinksDelegateProvider.registerLinkHandler('mmCourses', '$mmCoursesHandlers.linksHandler');
+    $mmContentLinksDelegateProvider.registerLinkHandler('mmCourses:courses', '$mmCoursesHandlers.coursesLinksHandler');
+    $mmContentLinksDelegateProvider.registerLinkHandler('mmCourses:course', '$mmCoursesHandlers.courseLinksHandler');
+    $mmContentLinksDelegateProvider.registerLinkHandler('mmCourses:dashboard', '$mmCoursesHandlers.dashboardLinksHandler');
 })
 
 .run(function($mmEvents, mmCoreEventLogin, mmCoreEventSiteUpdated, mmCoreEventLogout, $mmCoursesDelegate, $mmCourses,

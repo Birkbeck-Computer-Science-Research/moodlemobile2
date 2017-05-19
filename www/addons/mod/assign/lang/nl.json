@@ -1,11 +1,3 @@
 {
-    "addsubmission": "Inzending toevoegen",
-    "allowsubmissionsfromdate": "Insturen toestaan vanaf",
-    "attemptnumber": "Pogingnummer",
-    "cutoffdate": "Afsluitdatum",
-    "duedate": "Uiterste inleverdatum",
-    "duedateno": "Geen uiterste inleverdatum",
-    "submissions": "Ingestuurde opdrachten",
-    "userwithid": "Gebruiker met Id {{id}}",
-    "viewsubmission": "Bekijk ingestuurde opdracht"
+    "pluginname": "Opdracht"
 }

@@ -1,5 +1,6 @@
 {
     "errorgetnotifications": "Chyba při načítání oznámení.",
-    "notifications": "Upozornění",
+    "notificationpreferences": "Nastavení oznámení",
+    "notifications": "Oznámení",
     "therearentnotificationsyet": "Nejsou žádná sdělení"
 }

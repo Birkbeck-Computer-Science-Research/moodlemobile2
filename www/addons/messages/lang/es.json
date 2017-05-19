@@ -1,6 +1,7 @@
 {
     "addcontact": "Añadir como contacto",
     "blockcontact": "Bloquear contacto",
+    "blocknoncontacts": "Bloquear mensajes de usuarios que no figuren en mi lista de contactos",
     "contactlistempty": "Lista de contactos vacía",
     "contactname": "Nombre del contacto",
     "contacts": "Contactos",
@@ -10,7 +11,9 @@
     "errorwhileretrievingcontacts": "Error al recuperar los contactos del servidor.",
     "errorwhileretrievingdiscussions": "Error al recuperar las discusiones del servidor.",
     "errorwhileretrievingmessages": "Error al recuperar los mensajes del servidor.",
+    "message": "Cuerpo del mensaje",
     "messagenotsent": "El mensaje no fue enviado; por favor inténtelo nuevamente después.",
+    "messagepreferences": "Preferencias de mensajes",
     "messages": "Mensajes",
     "mustbeonlinetosendmessages": "Debe conectarse para enviar mensajes",
     "newmessage": "Nuevo mensaje...",
@@ -24,5 +27,6 @@
     "type_online": "En línea",
     "type_search": "Resultados de la búsqueda",
     "type_strangers": "Otros",
-    "unblockcontact": "Desbloquear contacto"
+    "unblockcontact": "Desbloquear contacto",
+    "warningmessagenotsent": "No se pudo enviar mensaje(s) al usuario {{user}}. {{error}}"
 }

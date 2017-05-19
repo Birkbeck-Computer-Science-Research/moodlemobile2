@@ -22,15 +22,25 @@ angular.module('mm.core')
  * @name mmLink
  *
  * @param {Boolean} [captureLink=false] If the link needs to be captured by the app.
+ * @param {Boolean} [inApp=false]       True to open in embedded browser, false to open in system browser.
+ * @param {String} [autoLogin=check] If the link should be open with auto-login. Accepts the following values:
+ *                                   "yes" -> Always auto-login.
+ *                                   "no" -> Never auto-login.
+ *                                   "check" -> Auto-login only if it points to the current site. Default value.
  */
-.directive('mmLink', function($mmUtil, $mmContentLinksHelper, $location) {
+.directive('mmLink', function($mmUtil, $mmContentLinksHelper, $location, $mmSite) {
 
     /**
      * Convenience function to correctly navigate, open file or url in the browser.
      *
-     * @param  {String} href    HREF to be opened
+     * @param  {String} href              HREF to be opened.
+     * @param  {Mixed} [inApp]            True to open in embedded browser, false to open in system browser.
+     * @param  {String} [autoLogin=check] Whether to auto-login. "yes", "no" or "check".
      */
-    function navigate(href) {
+    function navigate(href, inApp, autoLogin) {
+        inApp = inApp && inApp !== 'false';
+        autoLogin = autoLogin || 'check';
+
         if (href.indexOf('cdvfile://') === 0 || href.indexOf('file://') === 0) {
             // We have a local file.
             $mmUtil.openFile(href).catch(function(error) {
@@ -46,8 +56,33 @@ angular.module('mm.core')
                 $mmUtil.scrollToElement(document, "#" + href + ", [name='" + href + "']");
             }
         } else {
-            // It's an external link, we will open with browser.
-            $mmUtil.openInBrowser(href);
+            // It's an external link, we will open with browser. Check if we need to auto-login.
+            if (!$mmSite.isLoggedIn()) {
+                // Not logged in, cannot auto-login.
+                if (inApp) {
+                    $mmUtil.openInApp(href);
+                } else {
+                    $mmUtil.openInBrowser(href);
+                }
+            } else if (autoLogin == 'yes') {
+                if (inApp) {
+                    $mmSite.openInAppWithAutoLogin(href);
+                } else {
+                    $mmSite.openInBrowserWithAutoLogin(href);
+                }
+            } else if (autoLogin == 'no') {
+                if (inApp) {
+                    $mmUtil.openInApp(href);
+                } else {
+                    $mmUtil.openInBrowser(href);
+                }
+            } else {
+                if (inApp) {
+                    $mmSite.openInAppWithAutoLoginIfSameSite(href);
+                } else {
+                    $mmSite.openInBrowserWithAutoLoginIfSameSite(href);
+                }
+            }
         }
     }
 
@@ -56,19 +91,22 @@ angular.module('mm.core')
         priority: 100,
         link: function(scope, element, attrs) {
             element.on('click', function(event) {
-                var href = element[0].getAttribute('href');
-                if (href) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                // If the event prevented default action, do nothing.
+                if (!event.defaultPrevented) {
+                    var href = element[0].getAttribute('href');
+                    if (href) {
+                        event.preventDefault();
+                        event.stopPropagation();
 
-                    if (attrs.captureLink && attrs.captureLink !== 'false') {
-                        $mmContentLinksHelper.handleLink(href).then(function(treated) {
-                            if (!treated) {
-                               navigate(href);
-                            }
-                        });
-                    } else {
-                        navigate(href);
+                        if (attrs.captureLink && attrs.captureLink !== 'false') {
+                            $mmContentLinksHelper.handleLink(href).then(function(treated) {
+                                if (!treated) {
+                                   navigate(href, attrs.inApp, attrs.autoLogin);
+                                }
+                            });
+                        } else {
+                            navigate(href, attrs.inApp, attrs.autoLogin);
+                        }
                     }
                 }
             });
