@@ -16,7 +16,7 @@
 // Using JS confirm function we are sure that the user get notified in a Mobile device.
 // This script should be added at the begining of the index.html and it should only use native javascript functions.
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 var appVersion = '0.3.1',
 // =======
 // var appVersion = '3.2.1 (2017)',
