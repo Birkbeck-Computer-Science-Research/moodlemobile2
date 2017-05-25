@@ -446,9 +446,11 @@ angular.module('mm.addons.files')
 
         return $mmSitesManager.getSite(siteId).then(function(site) {
             if (site.isVersionGreaterEqualThan('3.1.1')) {
+                console.log('In Moodle 3.1.1 or higher we need a WS to move to private files.');
                 // In Moodle 3.1.1 or higher we need a WS to move to private files.
                 return self.canMoveFromDraftToPrivate(siteId);
             } else if (site.isVersionGreaterEqualThan('3.1.0')) {
+                console.log('Upload private files doesnt work for Moodle 3.1.0 due to a bug');
                 // Upload private files doesn't work for Moodle 3.1.0 due to a bug.
                 return false;
             }
