@@ -29,26 +29,15 @@
         <ion-content class="has-side-menu-header mm-sidemenu-menu">
             <nav>
                 <ul class="list dark">
-                    <li ng-if="showMyCourses" class="mm-mycourses-handler">
-                        <a menu-close class="item item-icon-left" ui-sref="site.mm_courses" title="{{ 'mm.sidemenu.mycourses' | translate}}">
-                            <i class="icon ion-ionic"></i>{{ 'mm.sidemenu.mycourses' | translate}}
-                        </a>
-                    </li>
                     <div class="menu-item-divider"></div>
                     <li class="item text-center" ng-if="(!handlers || !handlers.length) && !areNavHandlersLoaded()">
                         <ion-spinner></ion-spinner>
                     </li>
                     <li ng-repeat="handler in handlers | orderBy:'-priority'" ng-controller="handler.controller" class="mm-sidemenu-handler {{class}}">
-<!--<<<<<<< HEAD-->
-                        <!--<a menu-close class="item item-icon-left" ui-sref="{{state}}" title="{{title | translate}}">-->
-                            <!--<i class="icon {{icon}}"></i>{{title | translate}}-->
-                            <!--<span ng-show="badge > 0" class="badge badge-positive">{{badge}}</span>-->
-<!--=======-->
                         <a menu-close class="item item-icon-left" ui-sref="{{state}}" title="{{title | translate}}" ng-class="{'item-icon-right': loading}">
                             <i class="icon {{icon}}"></i> {{title | translate}}
                             <span ng-show="!loading && badge" class="badge badge-positive">{{badge}}</span>
                             <ion-spinner ng-if="loading" class="icon"></ion-spinner>
-<!--&gt;>>>>>> upstream/master-->
                         </a>
                         <div class="menu-item-divider"></div>
                     </li>

@@ -14,12 +14,8 @@
 
 // Dependencies will be automatically added here, the following line must declare ionic as first dependency
 // and should not be split into multiple lines, see gulpfile.js.
-// <<<<<<< HEAD
-// angular.module('mm', ['ionic', 'ngCordova', 'angular-md5', 'pascalprecht.translate', 'ngAria', 'oc.lazyLoad', 'ngIOS9UIWebViewPatch', 'nvd3'])
-// =======
 angular.module('mm', ['ionic', 'ngCordova', 'angular-md5', 'pascalprecht.translate', 'ngAria', 'oc.lazyLoad', 'ckeditor',
-    'ngIOS9UIWebViewPatch', 'nvd3','ngMessages'])
-// >>>>>>> upstream/master
+    'ngIOS9UIWebViewPatch', 'nvd3','ngMessages','ngAnimate'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {

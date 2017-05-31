@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="uk.ac.bbk.slapp-moodle" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="uk.ac.bbk.slapp-moodle" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Birkbeck</name>
   <description>Moodle @ Birckbeck</description>
-  <author href="http://bbk.ac.uk/" email="pauls@dcs.bbk.ac.uk">Paul Sharpe</author>
+  <author href="http://bbk.ac.uk/" email="janisaez@gmail.com">Joan S. Pons</author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-navigation href="cdvfile:*"/>
@@ -20,6 +20,9 @@
   <preference name="FadeSplashScreenDuration" value="6000"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="false"/>
   <allow-intent href="*"/>
+  <preference name="android-minSdkVersion" value="14" />
+  <preference name="android-targetSdkVersion" value="19" />
+  <preference name="AppendUserAgent" value="MoodleMobile" />
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
