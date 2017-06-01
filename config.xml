@@ -19,10 +19,10 @@
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value="6000" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
-    <allow-intent href="*" />
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-targetSdkVersion" value="19" />
     <preference name="AppendUserAgent" value="MoodleMobile" />
+    <allow-intent href="*" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
