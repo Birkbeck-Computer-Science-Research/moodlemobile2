@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="uk.ac.bbk.slapp-moodle" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="uk.ac.bbk.slapp-moodle" version="1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Birkbeck</name>
     <description>Moodle @ Birckbeck</description>
     <author email="janisaez@gmail.com" href="http://bbk.ac.uk/">Joan S. Pons</author>
@@ -9,6 +9,7 @@
     <allow-navigation href="content:*" />
     <allow-navigation href="data:*" />
     <allow-navigation href="*" />
+    <allow-navigation href="http://192.168.1.8:8100" />
     <preference name="Orientation" value="default" />
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
