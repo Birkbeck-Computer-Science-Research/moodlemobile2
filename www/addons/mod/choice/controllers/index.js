@@ -22,13 +22,9 @@ angular.module('mm.addons.mod_choice')
  * @name mmaModChoiceIndexCtrl
  * @todo Delete answer if user can update the answer, show selected if choice is closed (WS returns empty options).
  */
-// <<<<<<< HEAD
-// .controller('mmaModChoiceIndexCtrl', function($scope, $timeout, $stateParams, $mmaModChoice, $mmUtil, $q, $mmCourse, $translate) {
-// =======
 .controller('mmaModChoiceIndexCtrl', function($scope, $timeout, $stateParams, $mmaModChoice, $mmUtil, $mmCourseHelper, $q, $mmCourse, $mmText,
             mmaModChoiceComponent, mmaModChoiceAutomSyncedEvent, $mmSite, $mmEvents, $mmaModChoiceSync, $ionicScrollDelegate,
             $mmaModChoiceOffline, $mmApp, $translate, mmCoreEventOnlineStatusChanged) {
-// >>>>>>> upstream/master
     var module = $stateParams.module || {},
         courseId = $stateParams.courseid,
         choice,
@@ -132,6 +128,8 @@ angular.module('mm.addons.mod_choice')
             $scope.title = choice.name || $scope.title;
             $scope.description = choice.intro || $scope.description;
             $scope.choice = choice;
+            $scope.choiceNotOpenYet = choice.timeopen && choice.timeopen > $scope.now;
+            $scope.choiceClosed = choice.timeclose && choice.timeclose <= $scope.now;
 
             if (sync) {
                 // Try to synchronize the choice.
@@ -250,28 +248,28 @@ angular.module('mm.addons.mod_choice')
 
     // Convenience function to get choice results.
     function fetchResults() {
+        if ($scope.choiceNotOpenYet) {
+            // Cannot see results yet.
+            $scope.canSeeResults = false;
+            return;
+        }
+
         return $mmaModChoice.getResults(choice.id).then(function(results) {
             var hasVotes = false;
-// <<<<<<< HEAD
             var data     = [];
-// =======
             $scope.data = [];
             $scope.labels = [];
-// >>>>>>> upstream/master
             angular.forEach(results, function(result) {
                 if (result.numberofuser > 0) {
                     hasVotes = true;
                 }
                 result.percentageamount = parseFloat(result.percentageamount).toFixed(1);
-// <<<<<<< HEAD
                 data.push({
                     'label': result.text,
                     'value': result.numberofuser,
                     'percent': result.percentageamount / 100 });
-// =======
                 $scope.data.push(result.numberofuser);
                 $scope.labels.push(result.text);
-// >>>>>>> upstream/master
             });
             $scope.canSeeResults = hasVotes || $mmaModChoice.canStudentSeeResults(choice, hasAnsweredOnline);
             $scope.results = results;

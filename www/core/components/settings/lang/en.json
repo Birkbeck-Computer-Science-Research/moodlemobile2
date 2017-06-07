@@ -1,9 +1,6 @@
 {
     "about": "About",
-//<<<<<<< HEAD
     "appname": "Birkbeck {{version}}",
-//=======
-//>>>>>>> upstream/master
     "appready": "App ready",
     "cacheexpirationtime": "Cache expiration time (miliseconds)",
     "cannotsyncoffline": "Cannot synchronize offline.",
