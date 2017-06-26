@@ -10,8 +10,8 @@ $font-family-base: 'arial';
 
 // Colors.
 //$dark: orange !default;
-$bb-sidemenu-bg: #797d80;                 // grey
 $bar-content-bg: #8a0026 !default;                 // maroon
+$bb-sidemenu-bg: $bar-content-bg;                 // grey
 
 $bb-button-background: #25527E;           // bright blue
 $bb-button-color: $base-background-color;
@@ -145,15 +145,6 @@ section a h2 span {
   font-weight: bold;
 }
 
-// left side menu
-div.menu-item-divider {
-  min-height: 1px;
-  height: 5px;
-  border-top: 2px solid #84888b;
-  padding: 0;
-  margin: 0 1em;
-  background-color: #6C6f73;
-}
 nav ul.list li,nav ul.list li a, nav ul.list a {
   border: 0;
   background-color: $bb-sidemenu-bg;

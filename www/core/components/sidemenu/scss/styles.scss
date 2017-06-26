@@ -17,6 +17,9 @@ $bar-side-menu-text-color: $bar-content-text !default;
     h2,
     p {
       color: $bar-side-menu-text-color;
+      font-weight: 600;
+      text-transform: capitalize;
+      font-size: 1.2em;
     }
   }
 }
@@ -29,4 +32,26 @@ $bar-side-menu-text-color: $bar-content-text !default;
   .item .badge {
     right: 16px;
   }
+}
+
+.bb-white {
+  color: white;
+}
+
+.bb-font-weight-600 {
+  font-weight: 600;
+}
+
+// left side menu
+div.menu-item-divider {
+  min-height: 1px;
+  height: 3px;
+  border-top: 1px solid white;
+  padding: 0;
+  margin: 0 1em;
+  background-color: white;
+}
+
+.item.active, .mm-grades-table .active.itemcenter, .item.activated, .mm-grades-table .activated.itemcenter, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .mm-grades-table .itemcenter .item-content.active, .item .item-content.activated, .mm-grades-table .itemcenter .item-content.activated {
+  background-color: #690026 !important;
 }

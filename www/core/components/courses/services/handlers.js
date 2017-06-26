@@ -315,7 +315,7 @@ angular.module('mm.core.courses')
              * @name $mmCoursesHandlers#sideMenuNav:controller
              */
             return function($scope) {
-                $scope.icon = 'ion-ionic';
+                $scope.icon = 'ion-android-list' ;
                 $scope.title = 'mm.courses.mycourses';
                 $scope.state = 'site.mm_courses';
                 $scope.class = 'mm-mycourses-handler';
