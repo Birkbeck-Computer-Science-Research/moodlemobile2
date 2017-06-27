@@ -1,4 +1,4 @@
-<ion-view view-title="{{ 'mm.courses.mycourses' | translate }}">
+<ion-view view-title="{{ 'mm.courses.mycourses' | translate | uppercase }}">
     <ion-nav-buttons side="secondary">
         <a ui-sref="site.mm_searchcourses" ng-if="searchEnabled" class="button button-icon ion-ios-search-strong"></a>
     </ion-nav-buttons>
@@ -7,7 +7,7 @@
         <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="coursesLoaded" on-refresh="refreshCourses()">
         </ion-refresher>
         <mm-loading hide-until="coursesLoaded">
-            <div ng-if="courses && courses.length > 5" class="item item-transparent item-input-inset">
+            <div ng-if="courses && courses.length > 5" class="item item-transparent item-input-inset bb-course-filter">
                 <ion-input class="item-input-wrapper">
                     <i class="icon ion-funnel placeholder-icon"></i>
                     <input type="text" placeholder="{{ 'mm.courses.filtermycourses' | translate}}" ng-model="filter.filterText">

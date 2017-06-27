@@ -5,6 +5,16 @@ $doughnut-empty-colour: $gray-light;
 $doughnut-fill-colour: $orange-light;
 $doughnut-border-colour:  $gray-dark;
 $doughnut-text-colour: $gray-darker;
+$course-color: $bar-content-bg;
+$course-color-highlighted: $bb-white-color;
+
+.bb-card {
+  margin: 15px;
+}
+
+.bb-course-filter {
+  margin-bottom: 30px;
+}
 
 .item-course {
   >.icon, >ion-spinner {
@@ -12,8 +22,15 @@ $doughnut-text-colour: $gray-darker;
     width: 32px + ($item-padding /2);
     right: 0;
     top: 6px;
-    color: $doughnut-text-colour;
+    color: $course-color;
     position: absolute;
+  }
+  .spinner-ios, .spinner-ios-small {
+    stroke: $course-color;
+  }
+  h2, i.ion-android-more-vertical{
+    color: $course-color;
+    font-weight: 600;
   }
 }
 
@@ -121,6 +138,21 @@ mm-course-list-item .item-icon-left {
   color: $black;
 }
 
-.bg-highlight {
-  background-color: rgba(138, 0, 38, 0.3);
+.course-highlight {
+  background-color: $bar-content-bg;
+  h2, i.ion-android-more-vertical {
+    color: $course-color-highlighted;
+  }
+  .spinner-ios, .spinner-ios-small {
+    stroke: $course-color-highlighted;
+  }
+  &.activated{
+    h2 {
+      color: $course-color;
+    }
+  }
+}
+
+.item.active, .mm-grades-table .active.itemcenter, .mm-grades-table .active.itemcenter, .item.activated, .mm-grades-table .activated.itemcenter, .mm-grades-table .activated.itemcenter, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .mm-grades-table .itemcenter .item-content.active, .mm-grades-table .itemcenter .item-content.active, .item .item-content.activated, .mm-grades-table .itemcenter .item-content.activated, .mm-grades-table .itemcenter .item-content.activated {
+  color: $bar-content-bg !important;
 }
