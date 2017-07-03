@@ -10,10 +10,12 @@ $course-color-highlighted: $bb-white-color;
 
 .bb-card {
   margin: 15px;
+  border: 2px solid $course-color;
 }
 
 .bb-course-filter {
   margin-bottom: 30px;
+  border: 1px solid $mm-color-border;
 }
 
 .item-course {
@@ -140,6 +142,7 @@ mm-course-list-item .item-icon-left {
 
 .course-highlight {
   background-color: $bar-content-bg;
+  border: 2px solid $bar-content-bg;
   h2, i.ion-android-more-vertical {
     color: $course-color-highlighted;
   }
@@ -155,4 +158,9 @@ mm-course-list-item .item-icon-left {
 
 .item.active, .mm-grades-table .active.itemcenter, .mm-grades-table .active.itemcenter, .item.activated, .mm-grades-table .activated.itemcenter, .mm-grades-table .activated.itemcenter, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .mm-grades-table .itemcenter .item-content.active, .mm-grades-table .itemcenter .item-content.active, .item .item-content.activated, .mm-grades-table .itemcenter .item-content.activated, .mm-grades-table .itemcenter .item-content.activated {
   color: $bar-content-bg !important;
+}
+
+.card {
+  box-shadow: none;
+  padding: 0;
 }

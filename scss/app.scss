@@ -5,7 +5,7 @@
  */
 
 // global
-$base-background-color: #d9e0e6 !default;  // pale blue
+$base-background-color: #ffffff !default;  // pale blue
 $font-family-base: 'arial';
 
 // Colors.
@@ -71,6 +71,8 @@ $mm-color:          $orange;
 $mm-color-light:    lighten($mm-color, 10%);
 $mm-color-dark:     darken($mm-color, 10%);
 
+$mm-color-border:   #d9e0e6;
+
 $mm-buttons-color: $positive;
 
 // Change Ionic default elements colors.
@@ -103,6 +105,8 @@ $button-default-border: $mm-buttons-color !default;
 $button-default-active-bg: $mm-buttons-color !default;
 $button-default-active-border: $mm-buttons-color !default;
 
+
+$background-color: white;
 // login
 label img {
   display: block;
@@ -260,6 +264,10 @@ $ionicons-font-path: "../lib/ionic/release/fonts" !default;
       color: $gray-darker;
     }
   }
+}
+
+.header-item {
+  font-weight: 600 !important;
 }
 
 // Include all of Moodle Mobile.
