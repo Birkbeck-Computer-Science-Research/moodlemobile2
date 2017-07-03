@@ -15,7 +15,8 @@
     ],
     "dependencies": {
         "cordova-plugin-camera": "^2.4.1",
-        "cordova-plugin-local-notifications-mm": "~1.0.6"
+        "cordova-plugin-local-notifications-mm": "~1.0.6",
+        "cordova-android": "^6.2.3"
     },
     "devDependencies": {
         "angular-jsdoc": "^1.3.3",
@@ -133,6 +134,9 @@
                 "CAMERA_USAGE_DESCRIPTION": "Use your camera required for ease of configuration",
                 "PHOTOLIBRARY_USAGE_DESCRIPTION": "Access to your photo library required for ease of configuration"
             }
-        }
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }
