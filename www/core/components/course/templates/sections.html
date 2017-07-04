@@ -1,5 +1,5 @@
 <ion-view>
-    <ion-nav-title><mm-format-text watch="true">{{fullname}}</mm-format-text></ion-nav-title>
+    <!--<ion-nav-title><mm-format-text watch="true">{{fullname}}</mm-format-text></ion-nav-title>-->
     <ion-nav-buttons side="secondary">
         <mm-context-menu>
             <mm-context-menu-item priority="900" content="'mm.settings.enabledownloadsection' | translate" action="toggleDownloadSections()" icon-action="downloadSectionsIcon"></mm-context-menu-item>
@@ -11,8 +11,19 @@
            <ion-refresher on-refresh="doRefresh()" pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="sectionsLoaded"></ion-refresher>
             <mm-loading hide-until="sectionsLoaded">
                 <ul class="list">
-                    <li class="section-element-item" ng-repeat="section in sections" ng-if="sectionHasContent(section)" ng-class="{'item-dimmed': section.visible === 0 || section.uservisible === false}">
-                        <a class="item item-text-wrap" mm-split-view-link="site.mm_course-section({cid: courseId, sectionid: section.id, mid: moduleId})" title="{{section.name}}" ng-class="{'item-button-right': downloadSectionsEnabled}">
+                    <li class="section-element-item" ng-repeat="section in sections track by $index" ng-if="sectionHasContent(section)" ng-class="{'item-dimmed': section.visible === 0 || section.uservisible === false}">
+                        <div ng-if="section.name==='Banner'" class="banner"
+                             mm-split-view-link="site.mm_course-section({cid: courseId, sectionid: sections[$index-1].id, mid: moduleId})">
+                            <!--ng-style="{'background-image':'url({{getSrcFromImageTag(section.summary)}})'}">-->
+                            <div class="banner-title">
+                                <mm-format-text >{{fullname}}</mm-format-text>
+                            </div>
+                            <div mm-format-text not-adapt-img="false">{{section.summary}}</div>
+                        </div>
+                        <a ng-if="section.name==='All sections' && !hasBanner()" class="item item-text-wrap" mm-split-view-link="site.mm_course-section({cid: courseId, sectionid: sections[$index-1].id, mid: moduleId})" title="{{section.name}}" ng-class="{'item-button-right': downloadSectionsEnabled}">
+                            <mm-format-text watch="true">{{fullname}}</mm-format-text>
+                        </a>
+                        <a ng-if="section.name!=='Banner' && section.name!=='All sections'" class="item item-text-wrap" mm-split-view-link="site.mm_course-section({cid: courseId, sectionid: section.id, mid: moduleId})" title="{{section.name}}" ng-class="{'item-button-right': downloadSectionsEnabled}">
                             <mm-format-text watch="true">{{section.name}}</mm-format-text>
 
                             <button ng-if="downloadSectionsEnabled && section.showDownload && !section.isDownloading && !section.isCalculating" ng-click="prefetch($event, section)" class="button button-icon" aria-label="{{ 'mm.core.download' | translate }}">

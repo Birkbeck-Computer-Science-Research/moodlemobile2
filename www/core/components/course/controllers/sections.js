@@ -23,7 +23,7 @@ angular.module('mm.core.course')
  */
 .controller('mmCourseSectionsCtrl', function($mmCourse, $mmUtil, $scope, $stateParams, $translate, $mmCourseHelper, $mmEvents,
             $mmSite, $mmCoursePrefetchDelegate, $mmCourses, $q, $ionicHistory, $ionicPlatform, mmCoreCourseAllSectionsId,
-            mmCoreEventSectionStatusChanged, $state, $timeout, $mmCoursesDelegate, $controller) {
+            mmCoreEventSectionStatusChanged, $state, $timeout, $mmCoursesDelegate, $controller, $mmText) {
     var courseId = $stateParams.courseid,
         sectionId = $stateParams.sid,
         moduleId = $stateParams.moduleid,
@@ -96,7 +96,6 @@ angular.module('mm.core.course')
                     id: mmCoreCourseAllSectionsId
                 }].concat(sections);
 
-
                 $scope.sections = result;
 
                 if ($scope.downloadSectionsEnabled) {
@@ -107,6 +106,26 @@ angular.module('mm.core.course')
             $mmUtil.showErrorModalDefault(error, 'mm.course.couldnotloadsections', true);
         });
     }
+
+    $scope.getSrcFromImageTag = function(str){
+        var regex = /<img.*?src=['"](.*?)['"]/;
+        var imgSrc = regex.exec(str)[1];
+        // console.log($mmText.escapeHTML(imgSrc));
+        return imgSrc;
+    };
+
+    // $scope.removePTag = function(str){
+    //     $mmText.formatText(str).then(function(formatted){
+    //         var dom = angular.element('<div>').html(formatted);
+    //         console.log(JSON.stringify(dom))
+    //     })
+    //     // str.replace('<p>','').replace('</p>','');
+    // }
+
+    // filesystem:http://localhost:8100/persistent/sites/bdc7744ee9ed4859fcfe25ad16d6bbbc/filepool/header_3ab9411b63d9a223b85cde06accb124b.jpg
+    $scope.hasBanner = function(){
+        return $scope.sections.map(function(s){return s.name;}).indexOf('Banner')>0;
+    };
 
     $scope.toggleDownloadSections = function() {
         $scope.downloadSectionsEnabled = !$scope.downloadSectionsEnabled;
