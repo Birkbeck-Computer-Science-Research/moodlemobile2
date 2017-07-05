@@ -25,6 +25,14 @@ mm-course-mod-description .card .item {
   border: none;
 }
 
+.header-title {
+  min-height: 100px;
+  padding: 5px 60px 5px 15px;
+  font-weight: 600;
+  font-size: 2em;
+  line-height: 1em;
+}
+
 .banner {
   min-height: 100px;
   background: no-repeat center center fixed;
@@ -34,13 +42,12 @@ mm-course-mod-description .card .item {
   background-size: cover;
   .banner-title {
     position: absolute;
-    margin-left: 15px;
-    margin-top: 15px;
+    padding: 5px 60px 5px 15px;
     font-weight: 600;
     font-size: 2em;
     color: white;
     line-height: 1em;
-    max-width: 80%;
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1),rgba(0,0,0,0));
   }
   img {
     margin: 0 !important;

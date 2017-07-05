@@ -114,15 +114,14 @@ angular.module('mm.core.course')
         return imgSrc;
     };
 
-    // $scope.removePTag = function(str){
-    //     $mmText.formatText(str).then(function(formatted){
-    //         var dom = angular.element('<div>').html(formatted);
-    //         console.log(JSON.stringify(dom))
-    //     })
-    //     // str.replace('<p>','').replace('</p>','');
-    // }
+    $scope.isAllSections = function(name){
+        return name===$translate.instant('mm.course.allsections');
+    };
 
-    // filesystem:http://localhost:8100/persistent/sites/bdc7744ee9ed4859fcfe25ad16d6bbbc/filepool/header_3ab9411b63d9a223b85cde06accb124b.jpg
+    $scope.isBanner= function(name){
+        return name==='Banner';
+    };
+
     $scope.hasBanner = function(){
         return $scope.sections.map(function(s){return s.name;}).indexOf('Banner')>0;
     };
