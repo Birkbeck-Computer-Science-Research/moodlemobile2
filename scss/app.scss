@@ -11,6 +11,8 @@ $font-family-base: 'arial';
 // Colors.
 //$dark: orange !default;
 $bar-content-bg: #8a0026 !default;                 // maroon
+$bb-profile-header-color: #ffb600;
+$bb-messages-header-color: #04866d;
 $bb-sidemenu-bg: $bar-content-bg;                 // grey
 $bb-white-color: white;
 
@@ -274,10 +276,14 @@ ion-nav-bar {
   ion-header-bar {
     background-color: $bar-content-bg;
   }
-  &.yellow-header {
-    font-size: inherit;
+  &.profile-header {
     ion-header-bar {
-      background-color: #ffb600;
+      background-color: $bb-profile-header-color;
+    }
+  }
+  &.messages-header {
+    ion-header-bar {
+      background-color: $bb-messages-header-color;
     }
   }
 }

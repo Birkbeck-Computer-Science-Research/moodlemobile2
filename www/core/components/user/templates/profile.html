@@ -6,8 +6,8 @@
             <div ng-if="user && !isDeleted">
                 <div class="item item-text-wrap item-avatar-center">
                     <span ng-class="{'foreground-ion-edit ion-edit': canChangeProfilePicture}" ng-click="canChangeProfilePicture && changeProfilePicture()">
-                        <img ng-if="user.profileimageurl" class="avatar" ng-src="{{user.profileimageurl}}" mm-external-content alt="{{ 'mm.core.pictureof' | translate:{$a: user.fullname} }}" role="presentation">
-                        <img ng-if="!user.profileimageurl" class="avatar" src="img/user-avatar.png" alt="{{ 'mm.core.pictureof' | translate:{$a: user.fullname} }}" role="presentation">
+                        <img ng-if="user.profileimageurl" class="avatar mm-avatar" ng-src="{{user.profileimageurl}}" mm-external-content alt="{{ 'mm.core.pictureof' | translate:{$a: user.fullname} }}" role="presentation">
+                        <img ng-if="!user.profileimageurl" class="avatar mm-avatar" src="img/user-avatar.png" alt="{{ 'mm.core.pictureof' | translate:{$a: user.fullname} }}" role="presentation">
                     </span>
                     <h2><mm-format-text watch="true" clean="true">{{user.fullname}}</mm-format-text></h2>
                     <p><mm-format-text watch="true" clean="true" ng-if="user.address">{{user.address}}</mm-format-text></p>

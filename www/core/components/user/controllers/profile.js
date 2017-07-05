@@ -35,7 +35,7 @@ angular.module('mm.core.user')
             user.roles = $mmUser.formatRoleList(user.roles);
 
             $scope.user = user;
-            $scope.title = user.fullname;
+            $scope.title = 'MY PROFILE';
 
             $scope.isLoadingHandlers = true;
             $mmUserDelegate.getProfileHandlersFor(user, $scope.courseId).then(function(handlers) {
