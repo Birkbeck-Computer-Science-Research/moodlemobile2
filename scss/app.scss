@@ -270,5 +270,17 @@ $ionicons-font-path: "../lib/ionic/release/fonts" !default;
   font-weight: 600 !important;
 }
 
+ion-nav-bar {
+  ion-header-bar {
+    background-color: $bar-content-bg;
+  }
+  &.yellow-header {
+    font-size: inherit;
+    ion-header-bar {
+      background-color: #ffb600;
+    }
+  }
+}
+
 // Include all of Moodle Mobile.
 @import "www/build/mm.bundle.scss";

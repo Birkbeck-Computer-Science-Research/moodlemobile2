@@ -21,7 +21,9 @@ angular.module('mm.core.courses')
  * @ngdoc controller
  * @name mmCoursesAvailableCtrl
  */
-.controller('mmCoursesAvailableCtrl', function($scope, $mmCourses, $q, $mmUtil, $mmSite) {
+.controller('mmCoursesAvailableCtrl', function($scope, $mmCourses, $q, $mmUtil, $mmSite, $rootScope) {
+
+    $rootScope.headerColor = 'myCourses';
 
     // Convenience function to search courses.
     function loadCourses() {

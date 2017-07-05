@@ -9,3 +9,15 @@
 .mm-site_mm_user-profile .mm-tab-handlers {
     padding-bottom: 16px;
 }
+
+ion-nav-bar {
+    ion-header-bar {
+        background-color: $bar-content-bg;
+    }
+    &.yellow-header {
+        font-size: inherit;
+        ion-header-bar {
+            background-color: #ffb600;
+        }
+    }
+}
