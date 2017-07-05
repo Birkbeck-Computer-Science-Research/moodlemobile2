@@ -34,9 +34,33 @@ angular.module('mm.core.course')
     $scope.sectionHasContent = $mmCourseHelper.sectionHasContent;
 
     if (sectionId < 0) {
-        $scope.title = $translate.instant('mm.course.allsections');
+        // $scope.title = $translate.instant('mm.course.allsections');
         $scope.summary = null;
+        $scope.name = null;
         $scope.allSections = true;
+
+        var ps = $mmCourses.getUserCourse(courseId).catch(function() {
+            // Fail, maybe user isn't enrolled but he has capabilities to view it.
+            return $mmCourses.getCourse(courseId);
+        }).then(function(courseResponse) {
+            $scope.course = courseResponse;
+            return $scope.course.fullname;
+        }).catch(function() {
+            // Fail again, return generic value.
+            return $translate.instant('mm.core.course');
+        });
+        ps.then(function(courseFullName) {
+            if (courseFullName) {
+                $scope.title = courseFullName;
+            }
+        });
+
+        // $mmCourses.getCourse(courseId).then(function(courseResponse) {
+        //     $scope.course = courseResponse;
+        //     console.log('========='+JSON.stringify($scope.course));
+        // },function(e){
+        //     console.log(JSON.stringify(e))
+        // });
     }
 
     // Convenience function to fetch section(s).
