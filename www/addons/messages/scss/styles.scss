@@ -99,3 +99,28 @@ $mma-messages-date-badge: "stable" !default;
   width: 100%;
   text-align: center;
 }
+
+
+
+.tabs-messages {
+  .tabs {
+    background-color: $bb-messages-header-color;
+    color: white;
+    i {
+      color: white
+    }
+  }
+}
+
+.messages-item {
+  &.activated {
+    .messages-heading {
+      color: $bb-messages-header-color !important;
+    }
+  }
+  .messages-heading {
+    color: $bb-messages-header-color !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+  }
+}

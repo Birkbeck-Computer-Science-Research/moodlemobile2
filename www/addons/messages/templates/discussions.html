@@ -29,7 +29,7 @@
 
         <ul class="list" ng-if="!showSearchResults">
             <li>
-                <a class="item item-avatar" ng-repeat="disc in discussions | orderBy:'message.timecreated':true track by $index" mm-split-view-link="site.messages-discussion({userId: disc.message.user})" title="{{disc.fullname}}">
+                <a class="item item-avatar messages-item" ng-repeat="disc in discussions | orderBy:'message.timecreated':true track by $index" mm-split-view-link="site.messages-discussion({userId: disc.message.user})" title="{{disc.fullname}}">
 
                     <img ng-src="{{disc.profileimageurl}}" alt="{{ 'mm.core.pictureof' | translate:{$a: disc.fullname} }}" role="presentation" mm-external-content ng-if="disc.profileimageurl">
                     <img src="img/user-avatar.png" alt="{{ 'mm.core.pictureof' | translate:{$a: disc.fullname} }}" role="presentation" ng-if="!disc.profileimageurl">
@@ -38,7 +38,7 @@
                         <div ng-if="disc.message.timecreated > 0">{{disc.message.timecreated / 1000 | mmDateDayOrTime}}</div>
                         <div ng-if="disc.unread"><i class="icon ion-record positive"></i></div>
                     </span>
-                    <p class="item-heading">{{disc.fullname}}</p>
+                    <p class="item-heading messages-heading">{{disc.fullname}}</p>
                     <p><mm-format-text watch="true" clean="true" singleline="true">{{disc.message.message}}</mm-format-text></p>
                 </a>
             </li>

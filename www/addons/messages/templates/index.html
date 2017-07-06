@@ -1,6 +1,6 @@
 <ion-view view-title="{{ 'mma.messages.messages' | translate }}">
     <mm-split-view component="mmaMessagesIndex">
-        <ion-tabs class="tabs-icon-top">
+        <ion-tabs class="tabs-icon-top tabs-messages">
             <ion-tab title="{{ 'mma.messages.messages' | translate }}" icon="ion-chatbox">
                 <ion-pane ng-controller="mmaMessagesDiscussionsCtrl">
                     <ng-include src="'addons/messages/templates/discussions.html'"></ng-include>
