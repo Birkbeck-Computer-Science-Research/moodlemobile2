@@ -118,12 +118,12 @@ angular.module('mm.core.course')
         return name===$translate.instant('mm.course.allsections');
     };
 
-    $scope.isBanner= function(name){
-        return name==='Banner';
+    $scope.isWelcome= function(name){
+        return name==='Welcome';
     };
 
-    $scope.hasBanner = function(){
-        return $scope.sections.map(function(s){return s.name;}).indexOf('Banner')>0;
+    $scope.hasWelcome= function(){
+        return $scope.sections.map(function(s){return s.name;}).indexOf('Welcome')>0;
     };
 
     $scope.toggleDownloadSections = function() {

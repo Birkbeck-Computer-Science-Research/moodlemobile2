@@ -12,7 +12,7 @@
                 </div>
             </section>
 
-            <section ng-class="{'card': allSections}" ng-repeat="section in sections" ng-if="sectionHasContent(section) && section.name!=='Banner'">
+            <section ng-class="{'card': allSections}" ng-repeat="section in sections" ng-if="sectionHasContent(section) && section.name!=='Welcome'">
                 <!-- Title and summary are displayed when multiple sections per page. -->
                 <div class="item item-divider" ng-if="allSections && section.name">
                     <h2><mm-format-text watch="true">{{ section.name }}</mm-format-text></h2>
