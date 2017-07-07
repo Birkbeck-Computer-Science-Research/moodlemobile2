@@ -35,3 +35,11 @@ ion-nav-bar {
         font-weight: 600;
     }
 }
+
+.mm-user-profile-handler {
+    &.item.activated {
+        i, h2 {
+            color: #3a3a3a !important;
+        }
+    }
+}

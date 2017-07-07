@@ -156,8 +156,13 @@ mm-course-list-item .item-icon-left {
   }
 }
 
-.item.active, .mm-grades-table .active.itemcenter, .mm-grades-table .active.itemcenter, .item.activated, .mm-grades-table .activated.itemcenter, .mm-grades-table .activated.itemcenter, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .mm-grades-table .itemcenter .item-content.active, .mm-grades-table .itemcenter .item-content.active, .item .item-content.activated, .mm-grades-table .itemcenter .item-content.activated, .mm-grades-table .itemcenter .item-content.activated {
-  color: $bar-content-bg !important;
+.item-course {
+  &.activated {
+    background-color: white !important;
+    i, h2 {
+      color: $bar-content-bg !important;
+    }
+  }
 }
 
 .card {

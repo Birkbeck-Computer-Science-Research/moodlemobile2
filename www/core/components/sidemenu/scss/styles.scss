@@ -52,9 +52,12 @@ div.menu-item-divider {
   background-color: white;
 }
 
-.item.active, .mm-grades-table .active.itemcenter, .item.activated, .mm-grades-table .activated.itemcenter, .item-complex.active .item-content, .item-complex.activated .item-content, .item .item-content.active, .mm-grades-table .itemcenter .item-content.active, .item .item-content.activated, .mm-grades-table .itemcenter .item-content.activated {
-  background-color: white !important;
-  i, h2 {
+.bb-item {
+  &.activated {
+    background-color: white !important;
     color: $bar-content-bg !important;
+    i, h2 {
+      color: $bar-content-bg !important;
+    }
   }
 }
