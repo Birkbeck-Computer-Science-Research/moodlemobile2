@@ -28,5 +28,7 @@
     "reply": "Atsakyti",
     "subject": "Temos pavadinimas",
     "unread": "Neperskaityta",
-    "unreadpostsnumber": "Neperskaitytų skelbimų: {{$a}}"
+    "unreadpostsnumber": "Neperskaitytų skelbimų: {{$a}}",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

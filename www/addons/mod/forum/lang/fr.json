@@ -28,5 +28,7 @@
     "reply": "Répondre",
     "subject": "Sujet",
     "unread": "Non lu",
-    "unreadpostsnumber": "{{$a}} messages non lus"
+    "unreadpostsnumber": "{{$a}} messages non lus",
+    "subject_eachuser": "Réponse",
+    "message_eachuser": "Réponse"
 }

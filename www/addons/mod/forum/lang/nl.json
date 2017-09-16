@@ -28,5 +28,7 @@
     "reply": "Antwoord",
     "subject": "Onderwerp",
     "unread": "Niet gelezen",
-    "unreadpostsnumber": "{{$a}} ongelezen berichten"
+    "unreadpostsnumber": "{{$a}} ongelezen berichten",
+    "subject_eachuser": "Antwoort",
+    "message_eachuser": "Antwoort"
 }

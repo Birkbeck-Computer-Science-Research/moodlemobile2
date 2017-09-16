@@ -27,5 +27,7 @@
     "reply": "Respon",
     "subject": "Assumpte",
     "unread": "No llegit",
-    "unreadpostsnumber": "{{$a}} missatges no llegits"
+    "unreadpostsnumber": "{{$a}} missatges no llegits",
+    "subject_eachuser": "Resposta",
+    "message_eachuser": "Resposta"
 }

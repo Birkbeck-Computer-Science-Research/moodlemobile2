@@ -22,5 +22,7 @@
     "reply": "返信",
     "subject": "件名",
     "unread": "未読",
-    "unreadpostsnumber": "未読件数 {{$a}}"
+    "unreadpostsnumber": "未読件数 {{$a}}",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

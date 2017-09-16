@@ -84,7 +84,7 @@
                 </ul>
                 <mm-empty-box ng-if="forum && count == 0" icon="ion-chatboxes" message="{{ 'mma.mod_forum.forumnodiscussionsyet' | translate }}">
                     <div class="padding-top" ng-if="isCreateEnabled && forum.cancreatediscussions">
-                        <button class="button button-block" mm-split-view-link="site.mod_forum-newdiscussion({forumid: forum.id, cmid: forum.cmid, cid: courseid})">
+                        <button class="button button-block" mm-split-view-link="site.mod_forum-newdiscussion({forumid: forum.id, cmid: forum.cmid, cid: courseid, forumtype: forum.type})">
                             {{ 'mma.mod_forum.addanewdiscussion' | translate }}
                         </button>
                     </div>

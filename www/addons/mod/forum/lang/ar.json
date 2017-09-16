@@ -15,5 +15,7 @@
     "reply": "رد",
     "subject": "الموضوع",
     "unread": "لم يتم قرائتها",
-    "unreadpostsnumber": "{{$a}} مشاركات التي لم تقراء"
+    "unreadpostsnumber": "{{$a}} مشاركات التي لم تقراء",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

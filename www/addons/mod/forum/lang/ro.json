@@ -23,5 +23,7 @@
     "reply": "Răspunde",
     "subject": "Subiect",
     "unread": "Necitit",
-    "unreadpostsnumber": "{{$a}} intervenţii necitite"
+    "unreadpostsnumber": "{{$a}} intervenţii necitite",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

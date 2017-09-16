@@ -36,9 +36,12 @@ angular.module('mm.addons.mod_forum')
     // Block leaving the view, we want to show a confirm to the user if there's unsaved data.
     $mmUtil.blockLeaveView($scope, leaveView);
 
+    $scope.forumtype = $stateParams.forumtype;
+    $scope.title = $scope.forumtype === 'eachuser' ? 'mma.mod_forum.addanewdiscussion_eachuser' : 'mma.mod_forum.addanewdiscussion';
+
     $scope.newDiscussion = {
         subject: '',
-        text: '',
+        text: $scope.forumtype==='eachuser' ? '.':'',
         subscribe: true,
         pin: false,
         files: []

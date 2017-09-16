@@ -26,5 +26,7 @@
     "reply": "Відповісти",
     "subject": "Тема",
     "unread": "Непрочитані",
-    "unreadpostsnumber": "{{$a}} непрочитаних повідомлень"
+    "unreadpostsnumber": "{{$a}} непрочитаних повідомлень",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

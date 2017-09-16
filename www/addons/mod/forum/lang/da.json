@@ -27,5 +27,7 @@
     "reply": "Svar",
     "subject": "Emne",
     "unread": "Ikke læst",
-    "unreadpostsnumber": "{{$a}} nye indlæg"
+    "unreadpostsnumber": "{{$a}} nye indlæg",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

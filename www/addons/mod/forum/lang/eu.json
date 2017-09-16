@@ -28,5 +28,7 @@
     "reply": "Erantzun",
     "subject": "Gaia",
     "unread": "Irakurri gabe",
-    "unreadpostsnumber": "Irakurri gabeko {{$a}} mezu"
+    "unreadpostsnumber": "Irakurri gabeko {{$a}} mezu",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

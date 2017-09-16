@@ -28,5 +28,7 @@
     "reply": "回應",
     "subject": "主旨",
     "unread": "未閱讀",
-    "unreadpostsnumber": "{{$a}}篇未閱讀的貼文"
+    "unreadpostsnumber": "{{$a}}篇未閱讀的貼文",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

@@ -27,5 +27,7 @@
     "reply": "Ответить",
     "subject": "Тема",
     "unread": "Непрочтенные",
-    "unreadpostsnumber": "Непрочитанных сообщений - {{$a}}"
+    "unreadpostsnumber": "Непрочитанных сообщений - {{$a}}",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

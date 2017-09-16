@@ -20,5 +20,7 @@
     "reply": "回复",
     "subject": "主题",
     "unread": "未读",
-    "unreadpostsnumber": "{{$a}} 条未读帖子"
+    "unreadpostsnumber": "{{$a}} 条未读帖子",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

@@ -26,5 +26,7 @@
     "reply": "Απάντηση",
     "subject": "Θέμα",
     "unread": "Μη αναγνωσμένο",
-    "unreadpostsnumber": "{{$a}} μη αναγνωσμένες δημοσιεύσεις"
+    "unreadpostsnumber": "{{$a}} μη αναγνωσμένες δημοσιεύσεις",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

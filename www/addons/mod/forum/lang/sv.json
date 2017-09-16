@@ -24,5 +24,7 @@
     "reply": "Svar",
     "subject": "Ämne",
     "unread": "Oläst",
-    "unreadpostsnumber": "{{$a}} olästa inlägg"
+    "unreadpostsnumber": "{{$a}} olästa inlägg",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

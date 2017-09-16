@@ -22,5 +22,7 @@
     "reply": "Yanıtla",
     "subject": "Konu",
     "unread": "Okunmamış",
-    "unreadpostsnumber": "{{$a}} okunmamış mesaj"
+    "unreadpostsnumber": "{{$a}} okunmamış mesaj",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

@@ -28,5 +28,7 @@
     "reply": "Odpovědět",
     "subject": "Předmět",
     "unread": "Nepřečteno",
-    "unreadpostsnumber": "Nepřečtené příspěvky: {{$a}}"
+    "unreadpostsnumber": "Nepřečtené příspěvky: {{$a}}",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

@@ -21,5 +21,7 @@
     "reply": "Отговаряне",
     "subject": "Тема",
     "unread": "Непрочетено",
-    "unreadpostsnumber": "{{$a}} непрочетени мнения"
+    "unreadpostsnumber": "{{$a}} непрочетени мнения",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

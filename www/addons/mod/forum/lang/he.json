@@ -25,5 +25,7 @@
     "reply": "תגובה",
     "subject": "נושא",
     "unread": "לא נקרא",
-    "unreadpostsnumber": "{{$a}} הודעות שלא נקראו"
+    "unreadpostsnumber": "{{$a}} הודעות שלא נקראו",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

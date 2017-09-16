@@ -26,5 +26,7 @@
     "reply": "ارسال پاسخ",
     "subject": "موضوع",
     "unread": "خوانده نشده",
-    "unreadpostsnumber": "{{$a}} مطلب خوانده نشده"
+    "unreadpostsnumber": "{{$a}} مطلب خوانده نشده",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

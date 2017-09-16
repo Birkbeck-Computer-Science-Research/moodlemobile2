@@ -22,5 +22,7 @@
     "reply": "Odpowiedz",
     "subject": "Temat",
     "unread": "Nieprzeczytane",
-    "unreadpostsnumber": "{{$a}} nieprzeczytanych wpisów"
+    "unreadpostsnumber": "{{$a}} nieprzeczytanych wpisów",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

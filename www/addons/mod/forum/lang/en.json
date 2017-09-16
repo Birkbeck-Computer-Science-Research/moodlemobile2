@@ -1,5 +1,6 @@
 {
     "addanewdiscussion": "Add a new discussion topic",
+    "addanewdiscussion_eachuser": "Give your opinion",
     "cannotadddiscussion": "Adding discussions to this forum requires group membership.",
     "cannotadddiscussionall": "You do not have permission to add a new discussion topic for all participants.",
     "cannotcreatediscussion": "Could not create new discussion",
@@ -28,5 +29,7 @@
     "reply": "Reply",
     "subject": "Subject",
     "unread": "Unread",
-    "unreadpostsnumber": "{{$a}} unread posts"
+    "unreadpostsnumber": "{{$a}} unread posts",
+    "subject_eachuser": "Answer",
+    "message_eachuser": "Answer"
 }

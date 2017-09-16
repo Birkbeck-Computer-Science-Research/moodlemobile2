@@ -64,7 +64,8 @@ angular.module('mm.addons.mod_forum', [])
             cid: null, // Not naming it courseid because it collides with 'site.mod_forum' param in split-view.
             forumid: null,
             cmid: null,
-            timecreated: null
+            timecreated: null,
+            forumtype: null
         },
         views: {
             'site': {

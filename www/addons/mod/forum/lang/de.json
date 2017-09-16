@@ -28,5 +28,7 @@
     "reply": "Antworten",
     "subject": "Betreff",
     "unread": "Ungelesen",
-    "unreadpostsnumber": "{{$a}} ungelesene Beiträge"
+    "unreadpostsnumber": "{{$a}} ungelesene Beiträge",
+    "subject_eachuser": "Antwort",
+    "message_eachuser": "Antwort"
 }
